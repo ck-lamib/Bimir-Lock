@@ -1,16 +1,2 @@
-# bimir_lock
-
-A new Flutter project.
-
-## Getting Started
-
-This project is a starting point for a Flutter application.
-
-A few resources to get you started if this is your first Flutter project:
-
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
-
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+# Bimir-lock
+Bimir-Lock is a cutting-edge mobile app that provides top-notch security for your valuable data. With its advanced encryption technology, Bimir-Lock allows you to securely store and manage your passwords, ensuring your sensitive information remains safe from unauthorized access. Enjoy the convenience of accessing your passwords anytime, anywhere, with a simple yet robust authentication system. Experience peace of mind knowing that Bimir-Lock keeps your digital life protected while offering a seamless and user-friendly interface. Download Bimir-Lock now and take control of your password security.
