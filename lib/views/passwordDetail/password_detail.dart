@@ -1,0 +1,178 @@
+import 'package:flutter/material.dart';
+
+import '../../widgets/custom/custom_text_field.dart';
+
+class PasswordDetailPage extends StatelessWidget {
+  const PasswordDetailPage({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    var theme = Theme.of(context);
+    return GestureDetector(
+      onTap: () => FocusScope.of(context).unfocus(),
+      child: Scaffold(
+        appBar: AppBar(
+          leading: Padding(
+            padding: const EdgeInsets.only(left: 15),
+            child: IconButton(
+              onPressed: () => Navigator.of(context).pop(),
+              highlightColor: Colors.transparent,
+              icon: Icon(
+                Icons.arrow_back_rounded,
+                color: theme.colorScheme.onSurfaceVariant,
+                size: 30,
+              ),
+            ),
+          ),
+          automaticallyImplyLeading: false,
+          title: const Text(
+            "Media link",
+            style: TextStyle(
+              fontWeight: FontWeight.w500,
+            ),
+          ),
+          centerTitle: true,
+          actions: [
+            PopupMenuButton(
+              splashRadius: 0,
+              // shadowColor: AppColor.tertiaryTextColor,
+              padding: const EdgeInsets.symmetric(vertical: 12, horizontal: 60),
+              position: PopupMenuPosition.under,
+              shape: const RoundedRectangleBorder(
+                borderRadius: BorderRadius.all(
+                  Radius.circular(4.0),
+                ),
+              ),
+              constraints: const BoxConstraints(minWidth: 119, minHeight: 123),
+              onSelected: (value) {
+                if (value == "Edit") {
+                  // c.onEditTap();
+                } else if (value == "Delete") {
+                  // c.onDeletetap();
+                }
+              },
+              offset: const Offset(-20, 0),
+              itemBuilder: (BuildContext context) => [
+                PopupMenuItem(
+                  value: "Edit",
+                  child: Row(
+                    children: [
+                      Icon(
+                        Icons.edit,
+                        color: theme.colorScheme.onSurfaceVariant,
+                      ),
+                      const SizedBox(
+                        width: 5,
+                      ),
+                      Text(
+                        "Edit",
+                        style: TextStyle(
+                          fontSize: 16,
+                          fontWeight: FontWeight.w400,
+                          color: theme.colorScheme.onSurfaceVariant,
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+                PopupMenuItem(
+                  value: "Delete",
+                  child: Row(
+                    children: [
+                      Icon(
+                        Icons.delete,
+                        color: theme.colorScheme.error,
+                      ),
+                      const SizedBox(
+                        width: 5,
+                      ),
+                      Text(
+                        "Delete",
+                        style: TextStyle(
+                          fontSize: 16,
+                          fontWeight: FontWeight.w400,
+                          color: theme.colorScheme.error,
+                        ),
+                      )
+                    ],
+                  ),
+                ),
+              ],
+              child: const Padding(
+                padding: EdgeInsets.only(right: 24),
+                child: Icon(
+                  Icons.more_vert_rounded,
+                ),
+              ),
+            )
+          ],
+        ),
+        body: Padding(
+          padding: const EdgeInsets.all(25),
+          child: Center(
+            child: Card(
+              shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(35.0),
+              ),
+              elevation: 10,
+              semanticContainer: false,
+              surfaceTintColor: theme.colorScheme.surfaceTint,
+              child: Padding(
+                padding: const EdgeInsets.all(24.0),
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  mainAxisSize: MainAxisSize.min,
+                  children: [
+                    const Text(
+                      "Media title",
+                      style: TextStyle(
+                        fontSize: 18,
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ),
+                    const SizedBox(
+                      height: 40,
+                    ),
+                    BimirLockTextField(
+                      label: "Media Title",
+                      controller: TextEditingController(text: "Facebook"),
+                      readOnly: true,
+                    ),
+                    const SizedBox(
+                      height: 40,
+                    ),
+                    BimirLockTextField(
+                      label: "Email",
+                      controller: TextEditingController(text: "bimal@gmail.com"),
+                      readOnly: true,
+                      hasCopy: true,
+                    ),
+                    const SizedBox(
+                      height: 40,
+                    ),
+                    BimirLockTextField(
+                      label: "User Name",
+                      controller: TextEditingController(text: "Bimal"),
+                      readOnly: true,
+                      hasCopy: true,
+                    ),
+                    const SizedBox(
+                      height: 40,
+                    ),
+                    BimirLockTextField(
+                      label: "Password",
+                      controller: TextEditingController(text: "Facebook"),
+                      readOnly: true,
+                      hasCopy: true,
+                    ),
+                  ],
+                ),
+              ),
+            ),
+          ),
+        ),
+      ),
+    );
+  }
+}
