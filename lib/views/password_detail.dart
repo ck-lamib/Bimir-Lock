@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import '../../widgets/custom/custom_text_field.dart';
+import '../widgets/custom/custom_text_field.dart';
 
 class PasswordDetailPage extends StatelessWidget {
   const PasswordDetailPage({super.key});
@@ -110,68 +110,86 @@ class PasswordDetailPage extends StatelessWidget {
         body: Padding(
           padding: const EdgeInsets.all(25),
           child: Center(
-            child: Card(
-              shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(35.0),
-              ),
-              elevation: 10,
-              semanticContainer: false,
-              surfaceTintColor: theme.colorScheme.surfaceTint,
-              child: Padding(
-                padding: const EdgeInsets.all(24.0),
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  crossAxisAlignment: CrossAxisAlignment.center,
-                  mainAxisSize: MainAxisSize.min,
-                  children: [
-                    const Text(
-                      "Media title",
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.spaceAround,
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: [
+                Card(
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(35.0),
+                  ),
+                  elevation: 10,
+                  semanticContainer: false,
+                  surfaceTintColor: theme.colorScheme.surfaceTint,
+                  child: Padding(
+                    padding: const EdgeInsets.all(24.0),
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      mainAxisSize: MainAxisSize.min,
+                      children: [
+                        const Text(
+                          "Media title",
+                          style: TextStyle(
+                            fontSize: 18,
+                            fontWeight: FontWeight.bold,
+                          ),
+                        ),
+                        const SizedBox(
+                          height: 40,
+                        ),
+                        BimirLockTextField(
+                          label: "Media Title",
+                          controller: TextEditingController(text: "Facebook"),
+                          readOnly: true,
+                        ),
+                        const SizedBox(
+                          height: 40,
+                        ),
+                        BimirLockTextField(
+                          label: "Email",
+                          controller: TextEditingController(text: "bimal@gmail.com"),
+                          readOnly: true,
+                          hasCopy: true,
+                        ),
+                        const SizedBox(
+                          height: 40,
+                        ),
+                        BimirLockTextField(
+                          label: "User Name",
+                          controller: TextEditingController(text: "Bimal"),
+                          readOnly: true,
+                          hasCopy: true,
+                        ),
+                        const SizedBox(
+                          height: 40,
+                        ),
+                        BimirLockTextField(
+                          label: "Password",
+                          controller: TextEditingController(text: "Facebook"),
+                          readOnly: true,
+                          hasCopy: true,
+                        ),
+                      ],
+                    ),
+                  ),
+                ),
+                FloatingActionButton.extended(
+                    onPressed: () {},
+                    label: const Text(
+                      "Save",
                       style: TextStyle(
                         fontSize: 18,
-                        fontWeight: FontWeight.bold,
+                        fontWeight: FontWeight.w500,
                       ),
-                    ),
-                    const SizedBox(
-                      height: 40,
-                    ),
-                    BimirLockTextField(
-                      label: "Media Title",
-                      controller: TextEditingController(text: "Facebook"),
-                      readOnly: true,
-                    ),
-                    const SizedBox(
-                      height: 40,
-                    ),
-                    BimirLockTextField(
-                      label: "Email",
-                      controller: TextEditingController(text: "bimal@gmail.com"),
-                      readOnly: true,
-                      hasCopy: true,
-                    ),
-                    const SizedBox(
-                      height: 40,
-                    ),
-                    BimirLockTextField(
-                      label: "User Name",
-                      controller: TextEditingController(text: "Bimal"),
-                      readOnly: true,
-                      hasCopy: true,
-                    ),
-                    const SizedBox(
-                      height: 40,
-                    ),
-                    BimirLockTextField(
-                      label: "Password",
-                      controller: TextEditingController(text: "Facebook"),
-                      readOnly: true,
-                      hasCopy: true,
-                    ),
-                  ],
-                ),
-              ),
+                    )),
+              ],
             ),
           ),
         ),
+        // floatingActionButton: FloatingActionButton.extended(onPressed: () {}, label: Text("Save")),
+        floatingActionButtonAnimator: FloatingActionButtonAnimator.scaling,
+        floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
       ),
     );
   }
