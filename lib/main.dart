@@ -1,6 +1,5 @@
 import 'package:bimir_lock/utils/app_theme.dart';
-import 'package:bimir_lock/views/add_user_detail.dart';
-import 'package:bimir_lock/views/password_detail.dart';
+import 'package:bimir_lock/views/home_page.dart';
 import 'package:flutter/material.dart';
 
 void main() {
@@ -17,7 +16,7 @@ class BimirLock extends StatelessWidget {
       theme: lightTheme,
       darkTheme: darkTheme,
       debugShowCheckedModeBanner: false,
-      home: AddUserDetailPage(),
+      home: HomePage(),
     );
   }
 }

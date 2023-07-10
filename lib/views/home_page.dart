@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 
+import '../widgets/bimir_lock_drawer.dart';
 import '../widgets/custom/custom_text_field.dart';
 import '../widgets/slidable_list_tile.dart';
 
@@ -89,7 +90,7 @@ class HomePage extends StatelessWidget {
           backgroundColor: theme.colorScheme.onInverseSurface,
           foregroundColor: theme.colorScheme.onSurface,
         ),
-        drawer: const Drawer(),
+        drawer: BimirLockDrawer(),
       ),
     );
   }
