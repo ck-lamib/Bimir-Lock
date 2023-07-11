@@ -1,7 +1,8 @@
-import 'package:flutter/foundation.dart';
+import 'package:bimir_lock/utils/constants.dart';
+import 'package:bimir_lock/utils/icon_path.dart';
+import 'package:bimir_lock/widgets/contact_link_widget.dart';
+import 'package:bimir_lock/widgets/drawer_tile.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/svg.dart';
-import 'package:url_launcher/url_launcher.dart';
 
 class BimirLockDrawer extends StatelessWidget {
   const BimirLockDrawer({
@@ -35,111 +36,72 @@ class BimirLockDrawer extends StatelessWidget {
                   ),
                 ),
               ),
-              SizedBox(
+              const SizedBox(
                 height: 10,
               ),
-              DrawerTile(),
-              DrawerTile(),
-              DrawerTile(),
-              Wrap(
-                spacing: 20,
-                alignment: WrapAlignment.center,
-                runSpacing: 10,
+              const DrawerTile(
+                iconData: Icons.person_add_alt_rounded,
+                title: "Edit User detail",
+              ),
+              const DrawerTile(
+                iconData: Icons.password,
+                title: "Change pin",
+              ),
+              const DrawerTile(
+                iconData: Icons.fingerprint,
+                title: "Change biometric",
+              ),
+              const DrawerTile(
+                iconData: Icons.mode_edit,
+                title: "Dark Mode",
+                hasSwitch: true,
+              ),
+              const Spacer(),
+              const Column(
                 children: [
-                  InkWell(
-                    onTap: () async {
-                      final url = Uri.parse("https://bg.linkedin.com/in/ck-lamib/");
-                      try {
-                        await launchUrl(url);
-                      } catch (error) {
-                        print(error);
-                        if (kDebugMode) {
-                          print('Could not launch $url');
-                        }
-                      }
-                    },
-                    child: SvgPicture.asset(
-                      "assets/Icons/linkedin.svg",
-                      width: 40,
-                    ),
+                  Text(
+                    "Get connected with Creator",
+                    style: TextStyle(fontSize: 16, fontWeight: FontWeight.w600),
                   ),
-                  SvgPicture.asset(
-                    "assets/Icons/github.svg",
-                    width: 40,
+                  SizedBox(
+                    height: 20,
                   ),
-                  SvgPicture.asset(
-                    "assets/Icons/instagram.svg",
-                    width: 40,
-                  ),
-                  SvgPicture.asset(
-                    "assets/Icons/facebook.svg",
-                    width: 40,
-                  ),
-                  SvgPicture.asset(
-                    "assets/Icons/github.svg",
-                    width: 40,
-                  ),
-                  SvgPicture.asset(
-                    "assets/Icons/instagram.svg",
-                    width: 40,
-                  ),
-                  SvgPicture.asset(
-                    "assets/Icons/facebook.svg",
-                    width: 40,
+                  Wrap(
+                    spacing: 20,
+                    alignment: WrapAlignment.center,
+                    runSpacing: 10,
+                    children: [
+                      ContactLinkWidget(
+                        linkSvgIcon: IconPath.linkedinIconPath,
+                        linkUrl: ContactLink.linkedinLink,
+                      ),
+                      ContactLinkWidget(
+                        linkSvgIcon: IconPath.githubIconPath,
+                        linkUrl: ContactLink.githubLink,
+                      ),
+                      ContactLinkWidget(
+                        linkSvgIcon: IconPath.youtubeIconPath,
+                        linkUrl: ContactLink.youtubeLink,
+                      ),
+                      ContactLinkWidget(
+                        linkSvgIcon: IconPath.twitterIconPath,
+                        linkUrl: ContactLink.twitterLink,
+                      ),
+                      ContactLinkWidget(
+                        linkSvgIcon: IconPath.instagramIconPath,
+                        linkUrl: ContactLink.instagramLink,
+                      ),
+                      ContactLinkWidget(
+                        linkSvgIcon: IconPath.facebookIconPath,
+                        linkUrl: ContactLink.facebookLink,
+                      ),
+                    ],
                   ),
                 ],
               )
             ],
           ),
         ),
-      ),
-    );
-  }
-}
-
-class DrawerTile extends StatelessWidget {
-  final bool hasSwitch;
-  const DrawerTile({
-    super.key,
-    this.hasSwitch = false,
-  });
-
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      margin: EdgeInsets.only(top: 30),
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-        children: [
-          const Row(
-            children: [
-              Icon(
-                Icons.home,
-                size: 25,
-              ),
-              SizedBox(
-                width: 8,
-              ),
-              Text(
-                "User Setting",
-                style: TextStyle(fontSize: 15),
-              ),
-            ],
-          ),
-          hasSwitch
-              ? Transform.scale(
-                  scale: 0.6,
-                  child: Switch(
-                    value: true,
-                    onChanged: (value) {},
-                    // materialTapTargetSize: MaterialTapTargetSize.shrinkWrap,
-                  ),
-                )
-              : Icon(
-                  Icons.arrow_forward_ios_outlined,
-                  size: 20,
-                )
-        ],
       ),
     );
   }

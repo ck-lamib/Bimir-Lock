@@ -13,7 +13,7 @@ class BimirLock extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      theme: lightTheme,
+      theme: darkTheme,
       darkTheme: darkTheme,
       debugShowCheckedModeBanner: false,
       home: HomePage(),
