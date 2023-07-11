@@ -1,5 +1,5 @@
 import 'package:bimir_lock/utils/app_theme.dart';
-import 'package:bimir_lock/views/home_page.dart';
+import 'package:bimir_lock/views/change_access_pin.dart';
 import 'package:flutter/material.dart';
 
 void main() {
@@ -13,10 +13,10 @@ class BimirLock extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      theme: darkTheme,
+      theme: lightTheme,
       darkTheme: darkTheme,
       debugShowCheckedModeBanner: false,
-      home: HomePage(),
+      home: ChangeAccessPinPage(),
     );
   }
 }

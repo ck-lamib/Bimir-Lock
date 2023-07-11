@@ -111,7 +111,7 @@ class PasswordDetailPage extends StatelessWidget {
           padding: const EdgeInsets.all(25),
           child: Center(
             child: Column(
-              mainAxisAlignment: MainAxisAlignment.spaceAround,
+              mainAxisAlignment: MainAxisAlignment.center,
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
                 Card(
@@ -174,6 +174,9 @@ class PasswordDetailPage extends StatelessWidget {
                     ),
                   ),
                 ),
+                SizedBox(
+                  height: 80,
+                ),
                 FloatingActionButton.extended(
                     onPressed: () {},
                     label: const Text(
@@ -188,8 +191,8 @@ class PasswordDetailPage extends StatelessWidget {
           ),
         ),
         // floatingActionButton: FloatingActionButton.extended(onPressed: () {}, label: Text("Save")),
-        floatingActionButtonAnimator: FloatingActionButtonAnimator.scaling,
-        floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
+        // floatingActionButtonAnimator: FloatingActionButtonAnimator.scaling,
+        // floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
       ),
     );
   }
