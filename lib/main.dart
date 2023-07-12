@@ -1,6 +1,7 @@
 import 'package:bimir_lock/utils/app_theme.dart';
-import 'package:bimir_lock/views/splash_page.dart';
-import 'package:bimir_lock/views/welcome_page.dart';
+
+import 'package:bimir_lock/views/quotes_category.dart';
+
 import 'package:flutter/material.dart';
 
 void main() {
@@ -14,10 +15,10 @@ class BimirLock extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      theme: darkTheme,
+      theme: lightTheme,
       darkTheme: darkTheme,
       debugShowCheckedModeBanner: false,
-      home: SplashPage(),
+      home: SelectQuotesCategory(),
     );
   }
 }
