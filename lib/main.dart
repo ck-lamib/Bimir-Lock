@@ -1,6 +1,5 @@
 import 'package:bimir_lock/utils/app_theme.dart';
-
-import 'package:bimir_lock/views/quotes_category.dart';
+import 'package:bimir_lock/views/change_access_pin.dart';
 
 import 'package:flutter/material.dart';
 
@@ -18,7 +17,7 @@ class BimirLock extends StatelessWidget {
       theme: lightTheme,
       darkTheme: darkTheme,
       debugShowCheckedModeBanner: false,
-      home: SelectQuotesCategory(),
+      home: ChangeAccessPinPage(),
     );
   }
 }

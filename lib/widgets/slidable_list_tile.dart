@@ -1,3 +1,4 @@
+import 'package:bimir_lock/widgets/pin_input_dialog.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_slidable/flutter_slidable.dart';
 
@@ -38,7 +39,34 @@ class SlidableListTile extends StatelessWidget {
           children: [
             SlidableAction(
               borderRadius: BorderRadius.circular(15),
-              onPressed: (val) {},
+              onPressed: (val) {
+                showDialog(
+                    barrierDismissible: true,
+                    context: context,
+                    builder: (context) {
+                      return AlertDialog(
+                        title: const Text(
+                          "Do you want to delete?",
+                        ),
+                        actions: [
+                          TextButton(
+                            onPressed: () => Navigator.pop(context),
+                            child: const Text('Cancel',
+                                style: TextStyle(
+                                    // color: AppColor.secondaryTextColor,
+                                    )),
+                          ),
+                          TextButton(
+                            onPressed: () {},
+                            child: const Text('OK',
+                                style: TextStyle(
+                                    // color: Colors.red,
+                                    )),
+                          ),
+                        ],
+                      );
+                    });
+              },
               backgroundColor: theme.colorScheme.error,
               foregroundColor: Colors.white,
               icon: Icons.delete,
@@ -85,7 +113,18 @@ class SlidableListTile extends StatelessWidget {
               mainAxisSize: MainAxisSize.min,
               children: [
                 IconButton(
-                  onPressed: () {},
+                  onPressed: () {
+                    showDialog(
+                        barrierDismissible: true,
+                        context: context,
+                        builder: (context) {
+                          return PinInputMenuDialog(
+                            onConfirm: (pin) {
+                              print(pin);
+                            },
+                          );
+                        });
+                  },
                   icon: const Icon(
                     Icons.password_rounded,
                     size: 30,

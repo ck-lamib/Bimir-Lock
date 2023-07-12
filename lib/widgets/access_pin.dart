@@ -3,9 +3,22 @@ import 'package:flutter/services.dart';
 import 'package:pinput/pinput.dart';
 
 class AccessPinWidget extends StatelessWidget {
-  AccessPinWidget({super.key});
+  final TextEditingController pinController;
+  final FocusNode? focusNode;
+  final TextInputAction? textInputAction;
+  final String? Function(String?)? validator;
+  final Function(String)? onCompleted;
 
-  final pinController = TextEditingController();
+  AccessPinWidget({
+    super.key,
+    required this.pinController,
+    this.focusNode,
+    this.textInputAction = TextInputAction.done,
+    this.validator,
+    this.onCompleted,
+  });
+
+  // final pinController = TextEditingController();
 
   final formKey = GlobalKey<FormState>();
 
@@ -28,61 +41,53 @@ class AccessPinWidget extends StatelessWidget {
         border: Border.all(color: borderColor),
       ),
     );
-    return Form(
-      key: formKey,
-      child: Pinput(
-        controller: pinController,
-        // focusNode: focusNode,
-        length: 4,
-        keyboardType: TextInputType.number,
-        // textInputAction: TextInputAction.done,
-        inputFormatters: [
-          FilteringTextInputFormatter.digitsOnly,
+    return Pinput(
+      controller: pinController,
+      focusNode: focusNode,
+      length: 4,
+      keyboardType: TextInputType.number,
+      textInputAction: textInputAction,
+      inputFormatters: [
+        FilteringTextInputFormatter.digitsOnly,
+      ],
+      closeKeyboardWhenCompleted: true,
+      onTapOutside: (event) => FocusScope.of(context).unfocus(),
+      isCursorAnimationEnabled: true,
+      androidSmsAutofillMethod: AndroidSmsAutofillMethod.smsUserConsentApi,
+      listenForMultipleSmsOnAndroid: true,
+      defaultPinTheme: defaultPinTheme,
+      validator: validator,
+      hapticFeedbackType: HapticFeedbackType.lightImpact,
+      onCompleted: onCompleted,
+      // onChanged: (value) {
+      //   debugPrint('onChanged: $value');
+      // },
+      cursor: Column(
+        mainAxisAlignment: MainAxisAlignment.end,
+        children: [
+          Container(
+            margin: const EdgeInsets.only(bottom: 9),
+            width: 22,
+            height: 1,
+            color: focusedBorderColor,
+          ),
         ],
-        closeKeyboardWhenCompleted: true,
-        onTapOutside: (event) => FocusScope.of(context).unfocus(),
-        isCursorAnimationEnabled: true,
-        androidSmsAutofillMethod: AndroidSmsAutofillMethod.smsUserConsentApi,
-        listenForMultipleSmsOnAndroid: true,
-        defaultPinTheme: defaultPinTheme,
-        validator: (value) {
-          // return value == '2222' ? null : 'Pin is incorrect';
-          return null;
-        },
-        hapticFeedbackType: HapticFeedbackType.lightImpact,
-        onCompleted: (pin) {
-          debugPrint('onCompleted: $pin');
-        },
-        onChanged: (value) {
-          debugPrint('onChanged: $value');
-        },
-        cursor: Column(
-          mainAxisAlignment: MainAxisAlignment.end,
-          children: [
-            Container(
-              margin: const EdgeInsets.only(bottom: 9),
-              width: 22,
-              height: 1,
-              color: focusedBorderColor,
-            ),
-          ],
+      ),
+      focusedPinTheme: defaultPinTheme.copyWith(
+        decoration: defaultPinTheme.decoration!.copyWith(
+          borderRadius: BorderRadius.circular(8),
+          border: Border.all(color: focusedBorderColor),
         ),
-        focusedPinTheme: defaultPinTheme.copyWith(
-          decoration: defaultPinTheme.decoration!.copyWith(
-            borderRadius: BorderRadius.circular(8),
-            border: Border.all(color: focusedBorderColor),
-          ),
+      ),
+      submittedPinTheme: defaultPinTheme.copyWith(
+        decoration: defaultPinTheme.decoration!.copyWith(
+          color: fillColor,
+          borderRadius: BorderRadius.circular(19),
+          border: Border.all(color: focusedBorderColor),
         ),
-        submittedPinTheme: defaultPinTheme.copyWith(
-          decoration: defaultPinTheme.decoration!.copyWith(
-            color: fillColor,
-            borderRadius: BorderRadius.circular(19),
-            border: Border.all(color: focusedBorderColor),
-          ),
-        ),
-        errorPinTheme: defaultPinTheme.copyBorderWith(
-          border: Border.all(color: theme.colorScheme.error),
-        ),
+      ),
+      errorPinTheme: defaultPinTheme.copyBorderWith(
+        border: Border.all(color: theme.colorScheme.error),
       ),
     );
   }
