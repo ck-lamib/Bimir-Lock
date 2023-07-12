@@ -49,8 +49,11 @@
 	<true/>
 	<key>LSApplicationQueriesSchemes</key>
 	<array>
-	<string>sms</string>
-	<string>tel</string>
+		<string>sms</string>
+		<string>tel</string>
 	</array>
+	<key>NSFaceIDUsageDescription</key>
+	<string>Why is my app authenticating using face id?</string>
+
 </dict>
 </plist>

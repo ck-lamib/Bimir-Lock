@@ -6,7 +6,7 @@ class ChangeAccessPinPage extends StatelessWidget {
   ChangeAccessPinPage({super.key});
   final accessPinController = TextEditingController();
   final reAccessPinController = TextEditingController();
-  var formKey = GlobalKey<FormState>();
+  final formKey = GlobalKey<FormState>();
 
   @override
   Widget build(BuildContext context) {

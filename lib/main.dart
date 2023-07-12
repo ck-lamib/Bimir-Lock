@@ -1,5 +1,6 @@
 import 'package:bimir_lock/utils/app_theme.dart';
-import 'package:bimir_lock/views/change_access_pin.dart';
+
+import 'package:bimir_lock/views/fingerprint_page.dart';
 
 import 'package:flutter/material.dart';
 
@@ -17,7 +18,7 @@ class BimirLock extends StatelessWidget {
       theme: lightTheme,
       darkTheme: darkTheme,
       debugShowCheckedModeBanner: false,
-      home: ChangeAccessPinPage(),
+      home: MyApp(),
     );
   }
 }
