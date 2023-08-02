@@ -1,17 +1,14 @@
+import 'package:bimir_lock/features/introductionPage/presentation/introduction_controller.dart';
 import 'package:bimir_lock/views/home_page.dart';
 import 'package:flutter/material.dart';
 import 'package:introduction_screen/introduction_screen.dart';
 
-class IntroductionScreenPage extends StatelessWidget {
-  IntroductionScreenPage({super.key});
+class IntroductionPage extends StatelessWidget {
+  static const String routeName = "/introduction";
+  final c = IntroductionController();
+  IntroductionPage({super.key});
 
   final introKey = GlobalKey<IntroductionScreenState>();
-
-  void _onIntroEnd(context) {
-    Navigator.of(context).pushReplacement(
-      MaterialPageRoute(builder: (_) => const HomePage()),
-    );
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -47,8 +44,8 @@ class IntroductionScreenPage extends StatelessWidget {
                 body: "Download the Stockpile app and master the market with our mini-lesson.",
               ),
             ],
-            onDone: () => _onIntroEnd(context),
-            onSkip: () => _onIntroEnd(context), // You can override onSkip callback
+            onDone: () => c.onIntroEnd(context),
+            onSkip: () => c.onIntroEnd(context), // You can override onSkip callback
             showSkipButton: true,
             skipOrBackFlex: 0,
             nextFlex: 0,

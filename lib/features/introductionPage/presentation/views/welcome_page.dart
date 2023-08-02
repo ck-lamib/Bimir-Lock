@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:loading_animation_widget/loading_animation_widget.dart';
 
-import '../utils/image_path.dart';
+import '../../../../utils/image_path.dart';
 
 class WelcomePage extends StatelessWidget {
+  static const String routeName = "/welcome";
   const WelcomePage({super.key});
 
   @override

@@ -1,6 +1,5 @@
 import 'package:bimir_lock/utils/app_theme.dart';
-
-import 'package:bimir_lock/views/fingerprint_page.dart';
+import 'package:bimir_lock/utils/pages.dart';
 
 import 'package:flutter/material.dart';
 
@@ -14,11 +13,11 @@ class BimirLock extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
+    return MaterialApp.router(
+      routerConfig: routerConfig,
       theme: lightTheme,
       darkTheme: darkTheme,
       debugShowCheckedModeBanner: false,
-      home: MyApp(),
     );
   }
 }

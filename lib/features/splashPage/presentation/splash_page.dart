@@ -1,10 +1,25 @@
+import 'package:bimir_lock/features/splashPage/splash_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:loading_animation_widget/loading_animation_widget.dart';
 
-import '../utils/image_path.dart';
+import '../../../utils/image_path.dart';
 
-class SplashPage extends StatelessWidget {
+class SplashPage extends StatefulWidget {
+  static const String routeName = "/splashPage";
   const SplashPage({super.key});
+
+  @override
+  State<SplashPage> createState() => _SplashPageState();
+}
+
+class _SplashPageState extends State<SplashPage> {
+  final c = SplashController();
+
+  @override
+  void initState() {
+    c.onInit(context);
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
