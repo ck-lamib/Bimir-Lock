@@ -1,6 +1,7 @@
 import 'package:bimir_lock/features/introductionPage/presentation/views/introduction_page.dart';
 import 'package:bimir_lock/features/introductionPage/presentation/views/welcome_page.dart';
 import 'package:bimir_lock/features/splashPage/presentation/splash_page.dart';
+import 'package:bimir_lock/features/introductionPage/presentation/views/add_user_detail.dart';
 import 'package:go_router/go_router.dart';
 
 final routerConfig = GoRouter(
@@ -17,6 +18,10 @@ final routerConfig = GoRouter(
     GoRoute(
       path: IntroductionPage.routeName,
       builder: (context, state) => IntroductionPage(),
+    ),
+    GoRoute(
+      path: AddUserDetailPage.routeName,
+      builder: (context, state) => AddUserDetailPage(),
     ),
   ],
   debugLogDiagnostics: true,

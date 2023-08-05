@@ -3,7 +3,9 @@ import 'dart:convert';
 import 'package:bimir_lock/models/quote_model.dart';
 import 'package:http/http.dart' as http;
 
-class QuotesApiServices {
+class QuotesRemoteDatasource {
+  //take requesto handler from const param
+  QuotesRemoteDatasource();
   getQuotes({String? category}) async {
     var headers = {
       'X-Api-Key': 'F5sdBIU08xRDwzeww7nLFVpm3MxMUFW7q0c3tOJw',

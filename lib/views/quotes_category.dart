@@ -1,4 +1,3 @@
-import 'package:bimir_lock/repos/quotes_repo.dart';
 import 'package:flutter/material.dart';
 
 class SelectQuotesCategory extends StatefulWidget {
@@ -11,7 +10,7 @@ class SelectQuotesCategory extends StatefulWidget {
 class _SelectQuotesCategoryState extends State<SelectQuotesCategory> {
   @override
   void initState() {
-    QoutesRepo.getQuotes(category: "love");
+    // QoutesRepo.getQuotes(category: "love");
     super.initState();
   }
 

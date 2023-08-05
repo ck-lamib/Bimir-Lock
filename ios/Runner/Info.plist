@@ -54,6 +54,12 @@
 	</array>
 	<key>NSFaceIDUsageDescription</key>
 	<string>Why is my app authenticating using face id?</string>
+	<key>NSPhotoLibraryUsageDescription</key>
+	<string>app needs permission for the photo library.</string>
+	<key>NSCameraUsageDescription</key>
+	<string>app needs permission for the camera.</string>
+	<key>NSMicrophoneUsageDescription</key>
+	<string>app needs permission for the microphone.</string>
 
 </dict>
 </plist>

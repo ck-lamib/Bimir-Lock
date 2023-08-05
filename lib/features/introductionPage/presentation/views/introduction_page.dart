@@ -1,7 +1,7 @@
-import 'package:bimir_lock/features/introductionPage/presentation/introduction_controller.dart';
-import 'package:bimir_lock/views/home_page.dart';
 import 'package:flutter/material.dart';
 import 'package:introduction_screen/introduction_screen.dart';
+
+import '../controller/introduction_controller.dart';
 
 class IntroductionPage extends StatelessWidget {
   static const String routeName = "/introduction";
