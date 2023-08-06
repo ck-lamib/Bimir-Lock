@@ -1,16 +1,16 @@
-class UserModel {
+class User {
   String? userName;
   String? userAvatar;
   String? dob;
 
-  UserModel({this.userName, this.userAvatar, this.dob});
+  User({this.userName, this.userAvatar, this.dob});
 
   // UserModel.fromJson(Map<String, dynamic> json) {
   //   userName = json['userName'];
   //   userAvatar = json['userAvatar'];
   //   dob = json['dob'];
   // }
-  UserModel.fromJson(Map<String, dynamic> json) {
+  User.fromJson(Map<String, dynamic> json) {
     if (json['userAvatar'] != null) userAvatar = json['userAvatar'];
     if (json['userName'] != null) userName = json['userName'];
     if (json['dob'] != null) dob = json['dob'];

@@ -1,4 +1,5 @@
 class DbConstant {
+  static const String dbName = "BimirLockPasswords";
   static const String tableName = "PasswordTable";
   static const String id = "Id";
   static const String title = "Title";

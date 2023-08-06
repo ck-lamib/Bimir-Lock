@@ -5,7 +5,6 @@ import 'package:bimir_lock/utils/extensions.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get_state_manager/get_state_manager.dart';
 import 'package:image_picker/image_picker.dart';
-import 'package:intl/intl.dart';
 
 import '../../../../widgets/custom/custom_text_field.dart';
 import '../widget/custom_dialogues.dart';

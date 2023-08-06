@@ -24,7 +24,7 @@ class AddUserDetailController extends GetxController {
   }
 
   onSaveUserDetail() {
-    UserModel userModel = UserModel(dob: dobController.text, userName: userNameController.text);
+    User userModel = User(dob: dobController.text, userName: userNameController.text);
     print(userModel.toJson());
   }
 }

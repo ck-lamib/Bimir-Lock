@@ -3,7 +3,6 @@ import 'dart:developer';
 
 import 'package:bimir_lock/models/password_table.dart';
 import 'package:bimir_lock/utils/helper/db_constants.dart';
-import 'package:path/path.dart';
 import 'package:sqflite/sqflite.dart';
 
 class DataBaseHelper {
@@ -11,7 +10,7 @@ class DataBaseHelper {
 
   Future<Database> initDb() async {
     final dbPath = await getDatabasesPath();
-    final path = join(dbPath, 'BimirLockPasswords');
+    final path = "$dbPath/${DbConstant.dbName}";
     var finalDb = await openDatabase(path, version: 1, onCreate: _onCreate);
     return finalDb;
   }
