@@ -1,26 +1,33 @@
-import 'package:bimir_lock/features/introductionPage/domain/entities/user_entity.dart';
+class UserModel {
+  String? userName;
+  String? userAvatar;
+  String? dob;
 
-class UserDTO extends UserEntity {
-  const UserDTO(
-      {required super.id,
-      required super.email,
-      required super.firstName,
-      required super.lastName,
-      required super.occupation});
+  UserModel({this.userName, this.userAvatar, this.dob});
 
-  factory UserDTO.fromJson(Map<String, dynamic> json) => UserDTO(
-        id: json["id"],
-        email: json["email"],
-        firstName: json["first_name"],
-        lastName: json["last_name"],
-        occupation: json["occupation"],
-      );
+  // UserModel.fromJson(Map<String, dynamic> json) {
+  //   userName = json['userName'];
+  //   userAvatar = json['userAvatar'];
+  //   dob = json['dob'];
+  // }
+  UserModel.fromJson(Map<String, dynamic> json) {
+    if (json['userAvatar'] != null) userAvatar = json['userAvatar'];
+    if (json['userName'] != null) userName = json['userName'];
+    if (json['dob'] != null) dob = json['dob'];
+  }
 
-  Map<String, dynamic> toJson() => {
-        "id": id,
-        "email": email,
-        "first_name": firstName,
-        "last_name": lastName,
-        "occupation": occupation,
-      };
+  Map<String, dynamic> toJson() {
+    final Map<String, dynamic> data = <String, dynamic>{};
+    data['userName'] = userName;
+    data['userAvatar'] = userAvatar;
+    data['dob'] = dob;
+    return data;
+  }
+  // Map<String, dynamic> toJson() {
+  //   final Map<String, dynamic> data = <String, dynamic>{};
+  //   if (userAvatar != null) data['userAvatar'] = userAvatar;
+  //   if (userName != null) data['userName'] = userName;
+  //   if (dob != null) data['dob'] = dob;
+  //   return data;
+  // }
 }

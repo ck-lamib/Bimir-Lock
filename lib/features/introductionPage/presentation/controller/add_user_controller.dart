@@ -1,5 +1,7 @@
 import 'dart:io';
 
+import 'package:bimir_lock/features/introductionPage/data/model/user_model.dart';
+
 import 'package:flutter/material.dart';
 import 'package:get/get_state_manager/get_state_manager.dart';
 import 'package:get/state_manager.dart';
@@ -21,5 +23,8 @@ class AddUserDetailController extends GetxController {
     }
   }
 
-  onSaveUserDetail() {}
+  onSaveUserDetail() {
+    UserModel userModel = UserModel(dob: dobController.text, userName: userNameController.text);
+    print(userModel.toJson());
+  }
 }

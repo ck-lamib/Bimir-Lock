@@ -1,6 +1,7 @@
 import 'dart:developer';
 
 import 'package:bimir_lock/features/introductionPage/presentation/controller/add_user_controller.dart';
+import 'package:bimir_lock/utils/extensions.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get_state_manager/get_state_manager.dart';
 import 'package:image_picker/image_picker.dart';
@@ -189,7 +190,7 @@ class AddUserDetailPage extends StatelessWidget {
                               lastDate: DateTime(DateTime.now().year),
                             );
                             if (pickedDate != null) {
-                              c.dobController.text = DateFormat('yyyy-MM-dd').format(pickedDate);
+                              c.dobController.text = pickedDate.formatDate();
                             } else {
                               FocusManager.instance.primaryFocus?.unfocus();
                               log("==============>>>>>>> Date is not selected");
