@@ -15,7 +15,7 @@ class DataBaseHelper {
     return finalDb;
   }
 
-  Future<Database> get database async {
+  Future<Database> get getDatabase async {
     if (_db != null) {
       return _db!;
     }
@@ -36,7 +36,7 @@ create table ${DbConstant.tableName} (
 
   Future<void> insertPassword(PasswordTable data) async {
     try {
-      final db = await database;
+      final db = await getDatabase;
       db.insert(
         DbConstant.tableName,
         data.toJson(),
@@ -48,7 +48,7 @@ create table ${DbConstant.tableName} (
 
   Future<void> deletePassword(PasswordTable data) async {
     try {
-      final db = await database;
+      final db = await getDatabase;
 
       db.delete(
         DbConstant.tableName,
@@ -62,7 +62,7 @@ create table ${DbConstant.tableName} (
 
   Future<void> deleteAllPassword() async {
     try {
-      final db = await database;
+      final db = await getDatabase;
 
       db.delete(
         DbConstant.tableName,
@@ -74,7 +74,7 @@ create table ${DbConstant.tableName} (
 
   Future<void> getAllPassword() async {
     try {
-      final db = await database;
+      final db = await getDatabase;
 
       db.query(
         DbConstant.tableName,
@@ -86,7 +86,7 @@ create table ${DbConstant.tableName} (
 
   Future<void> updatePassword(PasswordTable data) async {
     try {
-      final db = await database;
+      final db = await getDatabase;
 
       db.update(
         DbConstant.tableName,

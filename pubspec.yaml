@@ -35,6 +35,7 @@ dependencies:
     sdk: flutter
   flutter_slidable: ^3.0.0
   flutter_svg: ^2.0.7
+  fluttertoast: ^8.2.2
   get: ^4.6.5
   go_router: ^10.0.0
   http: ^1.1.0

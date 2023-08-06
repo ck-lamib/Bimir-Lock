@@ -2,6 +2,7 @@ import 'dart:developer';
 
 import 'package:bimir_lock/features/introductionPage/presentation/controller/add_user_controller.dart';
 import 'package:bimir_lock/utils/extensions.dart';
+import 'package:bimir_lock/utils/validators.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get_state_manager/get_state_manager.dart';
 import 'package:image_picker/image_picker.dart';
@@ -153,50 +154,54 @@ class AddUserDetailPage extends StatelessWidget {
                   surfaceTintColor: theme.colorScheme.surfaceTint,
                   child: Padding(
                     padding: const EdgeInsets.all(24.0),
-                    child: Column(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      crossAxisAlignment: CrossAxisAlignment.center,
-                      mainAxisSize: MainAxisSize.min,
-                      children: [
-                        const Text(
-                          "User Detail",
-                          style: TextStyle(
-                            fontSize: 18,
-                            fontWeight: FontWeight.bold,
+                    child: Form(
+                      key: c.formKey,
+                      child: Column(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        crossAxisAlignment: CrossAxisAlignment.center,
+                        mainAxisSize: MainAxisSize.min,
+                        children: [
+                          const Text(
+                            "User Detail",
+                            style: TextStyle(
+                              fontSize: 18,
+                              fontWeight: FontWeight.bold,
+                            ),
                           ),
-                        ),
-                        const SizedBox(
-                          height: 30,
-                        ),
-                        BimirLockTextField(
-                          label: "User Name",
-                          controller: c.userNameController,
-                          textInputAction: TextInputAction.next,
-                        ),
-                        const SizedBox(
-                          height: 30,
-                        ),
-                        BimirLockTextField(
-                          label: "Date of Birth",
-                          controller: c.dobController,
-                          textInputAction: TextInputAction.done,
-                          readOnly: true,
-                          onTap: () async {
-                            DateTime? pickedDate = await showDatePicker(
-                              context: context,
-                              initialDate: DateTime(DateTime.now().year),
-                              firstDate: DateTime(DateTime.now().year - 100),
-                              lastDate: DateTime(DateTime.now().year),
-                            );
-                            if (pickedDate != null) {
-                              c.dobController.text = pickedDate.formatDate();
-                            } else {
-                              FocusManager.instance.primaryFocus?.unfocus();
-                              log("==============>>>>>>> Date is not selected");
-                            }
-                          },
-                        ),
-                      ],
+                          const SizedBox(
+                            height: 30,
+                          ),
+                          BimirLockTextField(
+                            label: "User Name",
+                            controller: c.userNameController,
+                            textInputAction: TextInputAction.next,
+                            validator: Validators.checkFieldEmpty,
+                          ),
+                          const SizedBox(
+                            height: 30,
+                          ),
+                          BimirLockTextField(
+                            label: "Date of Birth",
+                            controller: c.dobController,
+                            textInputAction: TextInputAction.done,
+                            readOnly: true,
+                            onTap: () async {
+                              DateTime? pickedDate = await showDatePicker(
+                                context: context,
+                                initialDate: DateTime(DateTime.now().year),
+                                firstDate: DateTime(DateTime.now().year - 100),
+                                lastDate: DateTime(DateTime.now().year),
+                              );
+                              if (pickedDate != null) {
+                                c.dobController.text = pickedDate.formatDate();
+                              } else {
+                                FocusManager.instance.primaryFocus?.unfocus();
+                                log("==============>>>>>>> Date is not selected");
+                              }
+                            },
+                          ),
+                        ],
+                      ),
                     ),
                   ),
                 ),
