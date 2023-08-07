@@ -5,7 +5,7 @@ import 'package:http/http.dart' as http;
 
 class QuotesRemoteDatasource {
   //take requesto handler from const param
-  QuotesRemoteDatasource();
+  // QuotesRemoteDatasource();
   getQuotes({String? category}) async {
     var headers = {
       'X-Api-Key': 'F5sdBIU08xRDwzeww7nLFVpm3MxMUFW7q0c3tOJw',

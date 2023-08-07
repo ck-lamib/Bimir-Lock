@@ -37,6 +37,9 @@ class AddUserDetailController extends GetxController {
         userAvatar: imagePath,
       );
       await StorageHelper().setUser(userModel);
+      //load quotes
+      //save user
+      //load initial quote
     }
   }
 }

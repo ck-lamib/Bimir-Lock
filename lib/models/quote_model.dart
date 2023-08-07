@@ -2,6 +2,7 @@ List<Quote> quotesfromJson(List<dynamic> quotesJson) =>
     quotesJson.map((quoteJson) => Quote.fromJson(quoteJson)).toList();
 
 class Quote {
+  int? id;
   String? quote;
   String? author;
 
@@ -11,6 +12,7 @@ class Quote {
   });
 
   Quote.fromJson(Map<String, dynamic> json) {
+    if (json['id'] != null) id = json['id'];
     quote = json['quote'];
     author = json['author'];
   }

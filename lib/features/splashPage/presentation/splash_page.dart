@@ -1,8 +1,13 @@
-import 'package:bimir_lock/features/splashPage/splash_controller.dart';
+import 'package:bimir_lock/core/core_controller.dart';
+import 'package:bimir_lock/features/introductionPage/presentation/views/welcome_page.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import 'package:get/state_manager.dart';
+import 'package:go_router/go_router.dart';
 import 'package:loading_animation_widget/loading_animation_widget.dart';
 
 import '../../../utils/image_path.dart';
+import '../../introductionPage/presentation/views/introduction_page.dart';
 
 class SplashPage extends StatefulWidget {
   static const String routeName = "/splashPage";
@@ -13,12 +18,21 @@ class SplashPage extends StatefulWidget {
 }
 
 class _SplashPageState extends State<SplashPage> {
-  final c = SplashController();
-
+  final CoreController c = Get.put(CoreController());
   @override
   void initState() {
-    c.onInit(context);
+    navigation();
     super.initState();
+  }
+
+  navigation() async {
+    Future.delayed(const Duration(seconds: 3), () {
+      if (c.isUserLoggedIn()) {
+        context.go(WelcomePage.routeName);
+      } else {
+        context.go(IntroductionPage.routeName);
+      }
+    });
   }
 
   @override

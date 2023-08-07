@@ -1,3 +1,4 @@
+import 'package:bimir_lock/models/quote_model.dart';
 import 'package:bimir_lock/utils/helper/db_helper.dart';
 import 'package:bimir_lock/utils/helper/storage_helper.dart';
 import 'package:get/get.dart';
@@ -7,6 +8,7 @@ import '../features/introductionPage/data/model/user_model.dart';
 class CoreController extends GetxController {
   DataBaseHelper dataBaseHelper = DataBaseHelper();
   StorageHelper storageHelper = StorageHelper();
+  Rx<Quote?> quote = Quote().obs;
   Rx<User?> currentUser = Rxn<User>();
 
   @override
@@ -17,7 +19,12 @@ class CoreController extends GetxController {
   }
 
   void loadCurrentUser() async {
-    currentUser.value = storageHelper.getUser();
+    currentUser.value = await storageHelper.getUser();
+  }
+
+  loadInitQuote() async {
+    quote.value = await dataBaseHelper.getinitialQuotes();
+    return quote.value ?? Quote(quote: "init quote", author: "bimal");
   }
 
   bool isUserLoggedIn() {
