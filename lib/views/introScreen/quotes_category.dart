@@ -124,7 +124,7 @@ class _QuotesCategoryPageState extends State<QuotesCategoryPage> {
       ),
       floatingActionButton: FloatingActionButton.extended(
           onPressed: () {
-            c.onGoTap(context);
+            c.onGoTap();
           },
           icon: const Icon(Icons.subdirectory_arrow_right_rounded),
           label: const Text(

@@ -1,12 +1,11 @@
 import 'dart:developer';
 
+import 'package:bimir_lock/main.dart';
 import 'package:bimir_lock/models/quote_category_model.dart';
 import 'package:bimir_lock/models/quote_model.dart';
 import 'package:bimir_lock/utils/helper/db_helper.dart';
-import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:get/get.dart';
-import 'package:go_router/go_router.dart';
 
 import '../../repo/remoteRepo/quotes_remote_datasource.dart';
 import '../../views/introScreen/add_user_detail.dart';
@@ -58,13 +57,13 @@ class QuotesCategoryController extends GetxController {
     return false;
   }
 
-  onGoTap(BuildContext context) async {
+  onGoTap() async {
     await saveQuoteCategory();
     // save the category
     if (selectedList.isEmpty) {
       return Fluttertoast.showToast(msg: "Please select at least 1 quote category");
     } else {
-      if (context.mounted) context.push(AddUserDetailPage.routeName);
+      navigatorKey.currentState!.pushNamed(AddUserDetailPage.routeName);
     }
   }
 

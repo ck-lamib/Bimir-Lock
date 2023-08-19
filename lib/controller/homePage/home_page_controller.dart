@@ -11,8 +11,12 @@ class HomePageController extends GetxController {
     super.onInit();
   }
 
-  loadPasswords() async {
+  Future loadPasswords() async {
     passwords?.value = await dbHelper.getAllPassword();
     print(passwords);
+  }
+
+  searchPassword() {
+    //search password by email/ link name
   }
 }

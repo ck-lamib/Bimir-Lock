@@ -53,10 +53,12 @@ class DataBaseHelper {
   insertPassword(PasswordTable data) async {
     try {
       final db = await getDatabase;
-      await db.insert(
-        DbConstant.passwordTableName,
-        data.toJson(),
-      );
+      await db
+          .insert(
+            DbConstant.passwordTableName,
+            data.toJson(),
+          )
+          .then((value) => print(value));
     } catch (e) {
       log("===============>>> Error while inserting: $e");
     }
@@ -88,7 +90,7 @@ class DataBaseHelper {
     }
   }
 
-  getAllPassword() async {
+  Future<List<PasswordTable>> getAllPassword() async {
     try {
       final db = await getDatabase;
 

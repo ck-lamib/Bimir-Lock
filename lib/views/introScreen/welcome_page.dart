@@ -1,9 +1,9 @@
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:bimir_lock/core/core_controller.dart';
-import 'package:bimir_lock/views/home_page.dart';
+import 'package:bimir_lock/main.dart';
+import 'package:bimir_lock/views/homePage/home_page.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:go_router/go_router.dart';
 import 'package:loading_animation_widget/loading_animation_widget.dart';
 
 import '../../../../utils/image_path.dart';
@@ -23,7 +23,8 @@ class _WelcomePageState extends State<WelcomePage> {
 
   @override
   void initState() {
-    Future.delayed((const Duration(seconds: 3))).whenComplete(() => context.go(HomePage.routeName));
+    Future.delayed((const Duration(seconds: 3))).whenComplete(() =>
+        navigatorKey.currentState!.pushNamedAndRemoveUntil(HomePage.routeName, (route) => false));
     super.initState();
   }
 

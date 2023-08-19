@@ -3,13 +3,13 @@ import 'dart:io';
 
 import 'package:bimir_lock/controller/introScreen/quotes_category_controller.dart';
 import 'package:bimir_lock/core/core_controller.dart';
+import 'package:bimir_lock/main.dart';
 import 'package:bimir_lock/utils/helper/storage_helper.dart';
 
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 
 import 'package:get/get.dart';
-import 'package:go_router/go_router.dart';
 import 'package:image_picker/image_picker.dart';
 
 import '../../models/user_model.dart';
@@ -57,7 +57,8 @@ class AddUserDetailController extends GetxController {
         log("========>>>>>> Error: $e");
       }
       try {
-        cc.loadInitQuote().then((value) => context.go(WelcomePage.routeName));
+        cc.loadInitQuote().then((value) => navigatorKey.currentState!
+            .pushNamedAndRemoveUntil(WelcomePage.routeName, (route) => false));
       } catch (e) {
         log("============>>>Error while loading initial quotes");
       }

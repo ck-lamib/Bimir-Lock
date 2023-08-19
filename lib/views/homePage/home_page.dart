@@ -1,10 +1,12 @@
-import 'package:bimir_lock/controller/home_page_controller.dart';
+import 'package:bimir_lock/controller/homePage/home_page_controller.dart';
+import 'package:bimir_lock/main.dart';
+import 'package:bimir_lock/views/homePage/add_password.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
-import '../widgets/bimir_lock_drawer.dart';
-import '../widgets/custom/custom_text_field.dart';
-import '../widgets/slidable_list_tile.dart';
+import '../../widgets/bimir_lock_drawer.dart';
+import '../../widgets/custom/custom_text_field.dart';
+import '../../widgets/slidable_list_tile.dart';
 
 class HomePage extends StatelessWidget {
   static const String routeName = "/homePage";
@@ -59,11 +61,7 @@ class HomePage extends StatelessWidget {
           //profile pic
         ),
         body: Padding(
-          padding: const EdgeInsets.only(
-            left: 20,
-            right: 20,
-            top: 20,
-          ),
+          padding: const EdgeInsets.only(left: 20, right: 20, top: 20),
           child: Column(
             children: [
               const BimirLockTextField(
@@ -77,8 +75,8 @@ class HomePage extends StatelessWidget {
 
               Expanded(
                 child: RefreshIndicator(
-                  onRefresh: () {
-                    return Future.delayed(Duration(seconds: 1));
+                  onRefresh: () async {
+                    await c.loadPasswords();
                   },
                   child: ListView.builder(
                     physics: const BouncingScrollPhysics(),
@@ -95,15 +93,18 @@ class HomePage extends StatelessWidget {
             ],
           ),
         ),
+        resizeToAvoidBottomInset: false,
         floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
         floatingActionButton: FloatingActionButton.extended(
-          onPressed: () {},
+          onPressed: () {
+            navigatorKey.currentState!.pushNamed(AddPasswordPage.routeName);
+          },
           icon: const Icon(Icons.add),
           label: const Text("Add password"),
           backgroundColor: theme.colorScheme.onInverseSurface,
           foregroundColor: theme.colorScheme.onSurface,
         ),
-        drawer: BimirLockDrawer(),
+        drawer: const BimirLockDrawer(),
       ),
     );
   }

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 
 class BimirLockTextField extends StatelessWidget {
   final Function(String)? onValueChange;
@@ -20,12 +21,14 @@ class BimirLockTextField extends StatelessWidget {
   final bool readOnly;
   final bool obscure;
   final Function()? onTap;
+  final Function()? onEyeTap;
   final Function(String)? onSubmit;
   final TextStyle? textStyle;
   final FocusNode? focusNode;
   final String? label;
   final bool enabled;
   final bool hasCopy;
+  final bool isPass;
 
   const BimirLockTextField({
     Key? key,
@@ -37,10 +40,11 @@ class BimirLockTextField extends StatelessWidget {
     this.validator,
     this.textCapitalization = TextCapitalization.none,
     this.textInputAction = TextInputAction.done,
-    this.textInputType = TextInputType.name,
+    this.textInputType = TextInputType.text,
     this.border,
     this.readOnly = false,
     this.onTap,
+    this.onEyeTap,
     this.initial,
     this.obscure = false,
     this.onSubmit,
@@ -52,6 +56,7 @@ class BimirLockTextField extends StatelessWidget {
     this.label,
     this.enabled = true,
     this.hasCopy = false,
+    this.isPass = false,
   }) : super(key: key);
 
   @override
@@ -81,7 +86,47 @@ class BimirLockTextField extends StatelessWidget {
       },
       decoration: InputDecoration(
         prefixIcon: (prefixIcon != null) ? prefixIcon : null,
-        suffixIcon: (suffixIcon != null) ? suffixIcon : null,
+        suffixIcon: hasCopy
+            ? Row(
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  const SizedBox(
+                    width: 10,
+                  ),
+                  InkWell(
+                    borderRadius: BorderRadius.circular(50),
+                    onTap: () => Clipboard.setData(
+                            ClipboardData(text: controller != null ? controller!.text : ""))
+                        .then((value) =>
+                            Fluttertoast.showToast(msg: "Text copied", gravity: ToastGravity.TOP)),
+                    child: const Icon(
+                      Icons.copy,
+                    ),
+                  ),
+                  if (isPass)
+                    const SizedBox(
+                      width: 10,
+                    ),
+                  isPass
+                      ? InkWell(
+                          borderRadius: BorderRadius.circular(50),
+                          onTap: onEyeTap,
+                          child: obscure
+                              ? const Icon(
+                                  Icons.visibility,
+                                )
+                              : const Icon(
+                                  Icons.visibility_off,
+                                ),
+                        )
+                      : const SizedBox.shrink(),
+                  if (isPass)
+                    const SizedBox(
+                      width: 8,
+                    ),
+                ],
+              )
+            : null,
         contentPadding: const EdgeInsets.all(16),
         border: OutlineInputBorder(
           borderRadius: (radius != null) ? radius! : const BorderRadius.all(Radius.circular(15)),
@@ -105,22 +150,7 @@ class BimirLockTextField extends StatelessWidget {
         hintText: hint ?? "",
         hintStyle: textStyle,
         labelText: label,
-        suffix: hasCopy
-            ? InkWell(
-                borderRadius: BorderRadius.circular(50),
-                onTap: () => Clipboard.setData(
-                    ClipboardData(text: controller != null ? controller!.text : "")),
-                child: const Icon(
-                  Icons.copy,
-                ),
-              )
-            // IconButton(
-            //     padding: EdgeInsets.all(0),
-            //     icon: const Icon(Icons.copy),
-            //     onPressed: () => Clipboard.setData(
-            //         ClipboardData(text: controller != null ? controller!.text : "")),
-            //   )
-            : null,
+        suffix: null,
       ),
       style: textStyle,
     );

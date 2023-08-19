@@ -44,8 +44,8 @@ class IntroductionPage extends StatelessWidget {
                 body: "Download the Stockpile app and master the market with our mini-lesson.",
               ),
             ],
-            onDone: () => c.onIntroEnd(context),
-            onSkip: () => c.onIntroEnd(context), // You can override onSkip callback
+            onDone: () => c.onIntroEnd(),
+            onSkip: () => c.onIntroEnd(), // You can override onSkip callback
             showSkipButton: true,
             skipOrBackFlex: 0,
             nextFlex: 0,

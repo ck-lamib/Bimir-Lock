@@ -1,10 +1,9 @@
 import 'package:bimir_lock/core/core_controller.dart';
+import 'package:bimir_lock/main.dart';
 import 'package:bimir_lock/views/introScreen/introduction_page.dart';
 import 'package:bimir_lock/views/introScreen/welcome_page.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-
-import 'package:go_router/go_router.dart';
 import 'package:loading_animation_widget/loading_animation_widget.dart';
 
 import '../utils/image_path.dart';
@@ -28,9 +27,10 @@ class _SplashPageState extends State<SplashPage> {
   navigation() async {
     Future.delayed(const Duration(seconds: 3), () {
       if (c.isUserLoggedIn()) {
-        context.go(WelcomePage.routeName);
+        navigatorKey.currentState!.pushNamedAndRemoveUntil(WelcomePage.routeName, (route) => false);
       } else {
-        context.go(IntroductionPage.routeName);
+        navigatorKey.currentState!
+            .pushNamedAndRemoveUntil(IntroductionPage.routeName, (route) => false);
       }
     });
   }
