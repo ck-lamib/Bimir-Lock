@@ -1,5 +1,6 @@
-List<QuoteCategory> quotesfromJson(List<dynamic> quotesJson) =>
-    quotesJson.map((quoteJson) => QuoteCategory.fromJson(quoteJson)).toList();
+List<QuoteCategory> quotesCategoryfromJson(List<dynamic> quotesCategoryJson) => quotesCategoryJson
+    .map((quoteCategoryJson) => QuoteCategory.fromJson(quoteCategoryJson))
+    .toList();
 
 class QuoteCategory {
   int? id;

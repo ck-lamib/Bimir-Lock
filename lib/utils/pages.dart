@@ -32,7 +32,7 @@ final routerConfig = GoRouter(
     ),
     GoRoute(
       path: HomePage.routeName,
-      builder: (context, state) => const HomePage(),
+      builder: (context, state) => HomePage(),
     ),
   ],
   debugLogDiagnostics: true,

@@ -45,6 +45,7 @@ dependencies:
   introduction_screen: ^3.1.9
   loading_animation_widget: ^1.2.0+4
   local_auth: ^2.1.6
+  lottie: ^2.6.0
   pinput: ^2.2.31
   shared_preferences: ^2.2.0
   sqflite: ^2.3.0
@@ -67,6 +68,7 @@ flutter:
   # To add assets to your application, add an assets section, like this:
   assets:
     - assets/Icons/
+    - assets/lotties/
   #   - images/a_dot_ham.jpeg
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware

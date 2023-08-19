@@ -39,19 +39,19 @@ class BimirLockDrawer extends StatelessWidget {
               const SizedBox(
                 height: 10,
               ),
-              const DrawerTile(
+              DrawerTile(
                 iconData: Icons.person_add_alt_rounded,
                 title: "Edit User detail",
               ),
-              const DrawerTile(
+              DrawerTile(
                 iconData: Icons.password,
                 title: "Change pin",
               ),
-              const DrawerTile(
+              DrawerTile(
                 iconData: Icons.fingerprint,
                 title: "Change biometric",
               ),
-              const DrawerTile(
+              DrawerTile(
                 iconData: Icons.mode_edit,
                 title: "Dark Mode",
                 hasSwitch: true,

@@ -1,3 +1,6 @@
+List<PasswordTable> passwordfromJson(List<dynamic> passwordsJson) =>
+    passwordsJson.map((passwordJson) => PasswordTable.fromJson(passwordJson)).toList();
+
 class PasswordTable {
   String? id;
   String? title;

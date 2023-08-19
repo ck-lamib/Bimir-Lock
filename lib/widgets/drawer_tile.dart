@@ -1,10 +1,14 @@
+import 'package:bimir_lock/core/core_controller.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 
 class DrawerTile extends StatelessWidget {
+  final CoreController cc = Get.find<CoreController>();
+
   final bool hasSwitch;
   final IconData iconData;
   final String title;
-  const DrawerTile({
+  DrawerTile({
     super.key,
     this.hasSwitch = false,
     required this.iconData,
@@ -44,13 +48,17 @@ class DrawerTile extends StatelessWidget {
                   alignment: Alignment.topRight,
                   scale: 0.6,
                   child: Container(
-                    padding: EdgeInsets.all(0),
-                    child: Switch(
-                      materialTapTargetSize: MaterialTapTargetSize.shrinkWrap,
-                      value: true,
-                      onChanged: (value) {},
-                      // materialTapTargetSize: MaterialTapTargetSize.shrinkWrap,
-                    ),
+                    padding: const EdgeInsets.all(0),
+                    child: Obx(() => Switch(
+                          materialTapTargetSize: MaterialTapTargetSize.shrinkWrap,
+                          value: cc.themeMode.value == ThemeMode.dark,
+                          onChanged: (value) {
+                            cc.toggleThemeMode(
+                              value ? ThemeMode.dark : ThemeMode.light,
+                            );
+                          },
+                          // materialTapTargetSize: MaterialTapTargetSize.shrinkWrap,
+                        )),
                   ),
                 )
               : const Icon(

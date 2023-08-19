@@ -6,7 +6,6 @@ import 'package:bimir_lock/models/password_table.dart';
 import 'package:bimir_lock/models/quote_category_model.dart';
 import 'package:bimir_lock/models/quote_model.dart';
 import 'package:bimir_lock/utils/helper/db_constants.dart';
-import 'package:get/get.dart';
 import 'package:sqflite/sqflite.dart';
 
 class DataBaseHelper {
@@ -54,7 +53,7 @@ class DataBaseHelper {
   insertPassword(PasswordTable data) async {
     try {
       final db = await getDatabase;
-      db.insert(
+      await db.insert(
         DbConstant.passwordTableName,
         data.toJson(),
       );
@@ -67,7 +66,7 @@ class DataBaseHelper {
     try {
       final db = await getDatabase;
 
-      db.delete(
+      await db.delete(
         DbConstant.passwordTableName,
         where: '${DbConstant.id} = ?',
         whereArgs: [data.id],
@@ -81,7 +80,7 @@ class DataBaseHelper {
     try {
       final db = await getDatabase;
 
-      db.delete(
+      await db.delete(
         DbConstant.passwordTableName,
       );
     } catch (e) {
@@ -93,11 +92,13 @@ class DataBaseHelper {
     try {
       final db = await getDatabase;
 
-      db.query(
+      List<Map<String, Object?>> passwords = await db.query(
         DbConstant.passwordTableName,
       );
+      return passwordfromJson(passwords);
     } catch (e) {
       log("===============>>> Error while reading all password: $e");
+      return [];
     }
   }
 
@@ -105,7 +106,7 @@ class DataBaseHelper {
     try {
       final db = await getDatabase;
 
-      db.update(
+      await db.update(
         DbConstant.passwordTableName,
         data.toJson(),
         where: '${DbConstant.id} = ?',
@@ -120,7 +121,7 @@ class DataBaseHelper {
   insertQuote(Quote data) async {
     try {
       final db = await getDatabase;
-      db.insert(
+      await db.insert(
         DbConstant.quoteTableName,
         data.toJson(),
       );
@@ -178,7 +179,7 @@ class DataBaseHelper {
     try {
       final db = await getDatabase;
 
-      return db.query(
+      return await db.query(
         DbConstant.quoteTableName,
       );
     } catch (e) {
@@ -191,7 +192,7 @@ class DataBaseHelper {
     try {
       final db = await getDatabase;
 
-      db.update(
+      await db.update(
         DbConstant.quoteTableName,
         data.toJson(),
         where: 'id = ?',
@@ -224,7 +225,7 @@ class DataBaseHelper {
     try {
       final db = await getDatabase;
 
-      db.delete(
+      await db.delete(
         DbConstant.quoteCategoryTableName,
         where: 'id = ?',
         whereArgs: [data.id],
@@ -238,7 +239,7 @@ class DataBaseHelper {
     try {
       final db = await getDatabase;
 
-      db.delete(
+      await db.delete(
         DbConstant.quoteCategoryTableName,
       );
     } catch (e) {
@@ -250,7 +251,7 @@ class DataBaseHelper {
     try {
       final db = await getDatabase;
 
-      db.query(
+      await db.query(
         DbConstant.quoteCategoryTableName,
       );
     } catch (e) {
@@ -262,7 +263,7 @@ class DataBaseHelper {
     try {
       final db = await getDatabase;
 
-      db.update(
+      await db.update(
         DbConstant.quoteCategoryTableName,
         data.toJson(),
         where: 'id = ?',

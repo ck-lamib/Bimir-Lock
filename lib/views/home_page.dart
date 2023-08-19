@@ -1,4 +1,6 @@
+import 'package:bimir_lock/controller/home_page_controller.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 
 import '../widgets/bimir_lock_drawer.dart';
 import '../widgets/custom/custom_text_field.dart';
@@ -6,9 +8,10 @@ import '../widgets/slidable_list_tile.dart';
 
 class HomePage extends StatelessWidget {
   static const String routeName = "/homePage";
-  const HomePage({
+  HomePage({
     super.key,
   });
+  final HomePageController c = Get.put(HomePageController());
 
   @override
   Widget build(BuildContext context) {
@@ -56,7 +59,11 @@ class HomePage extends StatelessWidget {
           //profile pic
         ),
         body: Padding(
-          padding: const EdgeInsets.all(24),
+          padding: const EdgeInsets.only(
+            left: 20,
+            right: 20,
+            top: 20,
+          ),
           child: Column(
             children: [
               const BimirLockTextField(
@@ -69,13 +76,18 @@ class HomePage extends StatelessWidget {
               ),
 
               Expanded(
-                child: ListView.builder(
-                  physics: const BouncingScrollPhysics(),
-                  shrinkWrap: true,
-                  itemCount: 7,
-                  itemBuilder: (context, index) {
-                    return const SlidableListTile();
+                child: RefreshIndicator(
+                  onRefresh: () {
+                    return Future.delayed(Duration(seconds: 1));
                   },
+                  child: ListView.builder(
+                    physics: const BouncingScrollPhysics(),
+                    shrinkWrap: true,
+                    itemCount: 7,
+                    itemBuilder: (context, index) {
+                      return const SlidableListTile();
+                    },
+                  ),
                 ),
               )
 
@@ -83,7 +95,7 @@ class HomePage extends StatelessWidget {
             ],
           ),
         ),
-        floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
+        floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
         floatingActionButton: FloatingActionButton.extended(
           onPressed: () {},
           icon: const Icon(Icons.add),

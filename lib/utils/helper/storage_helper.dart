@@ -40,6 +40,16 @@ class StorageHelper {
     }
   }
 
+  saveTheme(bool darkMode) async {
+    final SharedPreferences prefs = await SharedPreferences.getInstance();
+    await prefs.setBool(StorageKey.userThemeKey, darkMode);
+  }
+
+  Future<bool> readTheme() async {
+    final SharedPreferences prefs = await SharedPreferences.getInstance();
+    return prefs.getBool(StorageKey.userThemeKey) ?? true;
+  }
+
   Future<bool> removeUser() async {
     final SharedPreferences prefs = await SharedPreferences.getInstance();
     return prefs.clear();

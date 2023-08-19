@@ -51,7 +51,7 @@ class _WelcomePageState extends State<WelcomePage> {
               child: Image.asset(ImagePath.logoBPath),
             ),
             SizedBox(
-              height: mHeight / 9,
+              height: mHeight / 13,
             ),
             Container(
               // height: mHeight / 3,
