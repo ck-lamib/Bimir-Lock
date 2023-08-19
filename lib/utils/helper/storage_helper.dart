@@ -2,7 +2,7 @@ import 'dart:convert';
 import 'dart:developer';
 import 'dart:io';
 
-import 'package:bimir_lock/features/introductionPage/data/model/user_model.dart';
+import 'package:bimir_lock/models/user_model.dart';
 import 'package:bimir_lock/utils/extensions.dart';
 import 'package:bimir_lock/utils/helper/storage_constants.dart';
 import 'package:shared_preferences/shared_preferences.dart';

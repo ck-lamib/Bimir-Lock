@@ -3,28 +3,30 @@ import 'package:bimir_lock/utils/helper/db_helper.dart';
 import 'package:bimir_lock/utils/helper/storage_helper.dart';
 import 'package:get/get.dart';
 
-import '../features/introductionPage/data/model/user_model.dart';
+import '../models/user_model.dart';
 
 class CoreController extends GetxController {
   DataBaseHelper dataBaseHelper = DataBaseHelper();
   StorageHelper storageHelper = StorageHelper();
-  Rx<Quote?> quote = Quote().obs;
+  Rx<Quote?> initialQuote = Quote().obs;
   Rx<User?> currentUser = Rxn<User>();
 
   @override
   void onInit() async {
     loadCurrentUser();
     await dataBaseHelper.getDatabase;
+    loadInitQuote();
     super.onInit();
   }
 
-  void loadCurrentUser() async {
+  loadCurrentUser() async {
     currentUser.value = await storageHelper.getUser();
   }
 
-  loadInitQuote() async {
-    quote.value = await dataBaseHelper.getinitialQuotes();
-    return quote.value ?? Quote(quote: "init quote", author: "bimal");
+  Future loadInitQuote() async {
+    initialQuote.value = await dataBaseHelper.getinitialQuotes();
+    return initialQuote.value ??
+        Quote(quote: "The body achieves what the mind believes.", author: "Erin Gray");
   }
 
   bool isUserLoggedIn() {

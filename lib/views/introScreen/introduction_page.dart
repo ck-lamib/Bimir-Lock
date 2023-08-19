@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:introduction_screen/introduction_screen.dart';
 
-import '../controller/introduction_controller.dart';
+import '../../controller/introScreen/introduction_controller.dart';
 
 class IntroductionPage extends StatelessWidget {
   static const String routeName = "/introduction";

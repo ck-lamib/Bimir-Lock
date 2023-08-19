@@ -5,6 +5,7 @@ import '../widgets/custom/custom_text_field.dart';
 import '../widgets/slidable_list_tile.dart';
 
 class HomePage extends StatelessWidget {
+  static const String routeName = "/homePage";
   const HomePage({
     super.key,
   });

@@ -1,6 +1,7 @@
-import 'package:bimir_lock/features/introductionPage/presentation/controller/quotes_category_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+
+import '../../controller/introScreen/quotes_category_controller.dart';
 
 class QuotesCategoryPage extends StatefulWidget {
   static const String routeName = "/selectQuotesCategory";

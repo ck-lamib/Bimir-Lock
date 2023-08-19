@@ -6,6 +6,7 @@ import 'package:bimir_lock/models/password_table.dart';
 import 'package:bimir_lock/models/quote_category_model.dart';
 import 'package:bimir_lock/models/quote_model.dart';
 import 'package:bimir_lock/utils/helper/db_constants.dart';
+import 'package:get/get.dart';
 import 'package:sqflite/sqflite.dart';
 
 class DataBaseHelper {
@@ -26,31 +27,31 @@ class DataBaseHelper {
     return _db!;
   }
 
-  Future<void> _onCreate(Database db, int version) async {
+  _onCreate(Database db, int version) async {
     await db.execute('''
       create table ${DbConstant.passwordTableName} ( 
         ${DbConstant.id} integer primary key autoincrement, 
-        ${DbConstant.title} text not null,
-        ${DbConstant.userName} text not null,
-        ${DbConstant.email} text not null,
-        ${DbConstant.password} text not null)
+        ${DbConstant.title} text,
+        ${DbConstant.userName} text,
+        ${DbConstant.email} text,
+        ${DbConstant.password} text)
       ''');
 
     await db.execute('''
       create table ${DbConstant.quoteTableName} ( 
-        id integer primary key autoincrement, 
-        quote text not null,
-        author text not null)
+        ${DbConstant.id} integer primary key autoincrement, 
+        ${DbConstant.quote} text,
+        ${DbConstant.author} text)
       ''');
     await db.execute('''
       create table ${DbConstant.quoteCategoryTableName} ( 
-        id integer primary key autoincrement, 
-        category text not null)
+        ${DbConstant.id} integer primary key autoincrement, 
+        ${DbConstant.quoteCategory} text)
       ''');
   }
 
 //for password
-  Future<void> insertPassword(PasswordTable data) async {
+  insertPassword(PasswordTable data) async {
     try {
       final db = await getDatabase;
       db.insert(
@@ -62,7 +63,7 @@ class DataBaseHelper {
     }
   }
 
-  Future<void> deletePassword(PasswordTable data) async {
+  deletePassword(PasswordTable data) async {
     try {
       final db = await getDatabase;
 
@@ -76,7 +77,7 @@ class DataBaseHelper {
     }
   }
 
-  Future<void> deleteAllPassword() async {
+  deleteAllPassword() async {
     try {
       final db = await getDatabase;
 
@@ -88,7 +89,7 @@ class DataBaseHelper {
     }
   }
 
-  Future<void> getAllPassword() async {
+  getAllPassword() async {
     try {
       final db = await getDatabase;
 
@@ -100,7 +101,7 @@ class DataBaseHelper {
     }
   }
 
-  Future<void> updatePassword(PasswordTable data) async {
+  updatePassword(PasswordTable data) async {
     try {
       final db = await getDatabase;
 
@@ -116,7 +117,7 @@ class DataBaseHelper {
   }
 
   //for quotes
-  Future<void> insertQuote(Quote data) async {
+  insertQuote(Quote data) async {
     try {
       final db = await getDatabase;
       db.insert(
@@ -128,7 +129,7 @@ class DataBaseHelper {
     }
   }
 
-  Future<void> deleteQuote(Quote data) async {
+  deleteQuote(Quote data) async {
     try {
       final db = await getDatabase;
 
@@ -142,34 +143,51 @@ class DataBaseHelper {
     }
   }
 
+  deleteAllQuotes() async {
+    try {
+      final db = await getDatabase;
+
+      await db.delete(
+        DbConstant.quoteTableName,
+      );
+    } catch (e) {
+      log("===============>>> Error while deleting quote: $e");
+    }
+  }
+
   getinitialQuotes() async {
     try {
       final db = await getDatabase;
       var values = await db.query(
         DbConstant.quoteTableName,
       );
-      math.Random random = math.Random();
-      int randomIndex = random.nextInt(values.length);
-      return values[randomIndex];
+      if (values.isNotEmpty) {
+        math.Random random = math.Random();
+        int randomIndex = random.nextInt(values.length);
+        return Quote.fromJson(values[randomIndex]);
+      } else {
+        return Quote(quote: "The body achieves what the mind believes.", author: "Erin Gray");
+      }
     } catch (e) {
       log("===============>>> Error while reading all quote: $e");
       return null;
     }
   }
 
-  Future<void> getAllQuotes() async {
+  Future<List<Map<String, Object?>>> getAllQuotes() async {
     try {
       final db = await getDatabase;
 
-      db.query(
+      return db.query(
         DbConstant.quoteTableName,
       );
     } catch (e) {
       log("===============>>> Error while reading all quote: $e");
+      return [];
     }
   }
 
-  Future<void> updateQuote(Quote data) async {
+  updateQuote(Quote data) async {
     try {
       final db = await getDatabase;
 
@@ -184,20 +202,25 @@ class DataBaseHelper {
     }
   }
 
-  //for quotes
-  Future<void> insertQuoteCategory(QuoteCategory data) async {
+  //for quotes category
+  insertQuoteCategory(QuoteCategory data) async {
     try {
       final db = await getDatabase;
-      db.insert(
+
+      await db
+          .insert(
         DbConstant.quoteCategoryTableName,
         data.toJson(),
-      );
+      )
+          .then((value) {
+        print(value);
+      });
     } catch (e) {
       log("===============>>> Error while inserting: $e");
     }
   }
 
-  Future<void> deleteQuoteCategory(QuoteCategory data) async {
+  deleteQuoteCategory(QuoteCategory data) async {
     try {
       final db = await getDatabase;
 
@@ -211,7 +234,19 @@ class DataBaseHelper {
     }
   }
 
-  Future<void> getAllQuotesCategory() async {
+  deleteAllQuoteCategory() async {
+    try {
+      final db = await getDatabase;
+
+      db.delete(
+        DbConstant.quoteCategoryTableName,
+      );
+    } catch (e) {
+      log("===============>>> Error while deleting quote cat: $e");
+    }
+  }
+
+  getAllQuotesCategory() async {
     try {
       final db = await getDatabase;
 
@@ -223,7 +258,7 @@ class DataBaseHelper {
     }
   }
 
-  Future<void> updateQuoteCategory(QuoteCategory data) async {
+  updateQuoteCategory(QuoteCategory data) async {
     try {
       final db = await getDatabase;
 

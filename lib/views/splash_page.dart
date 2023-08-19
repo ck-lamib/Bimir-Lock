@@ -1,13 +1,13 @@
 import 'package:bimir_lock/core/core_controller.dart';
-import 'package:bimir_lock/features/introductionPage/presentation/views/welcome_page.dart';
+import 'package:bimir_lock/views/introScreen/introduction_page.dart';
+import 'package:bimir_lock/views/introScreen/welcome_page.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:get/state_manager.dart';
+
 import 'package:go_router/go_router.dart';
 import 'package:loading_animation_widget/loading_animation_widget.dart';
 
-import '../../../utils/image_path.dart';
-import '../../introductionPage/presentation/views/introduction_page.dart';
+import '../utils/image_path.dart';
 
 class SplashPage extends StatefulWidget {
   static const String routeName = "/splashPage";

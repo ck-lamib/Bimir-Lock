@@ -1,19 +1,29 @@
+import 'dart:developer';
 import 'dart:io';
 
-import 'package:bimir_lock/features/introductionPage/data/model/user_model.dart';
+import 'package:bimir_lock/controller/introScreen/quotes_category_controller.dart';
+import 'package:bimir_lock/core/core_controller.dart';
+import 'package:bimir_lock/utils/helper/db_helper.dart';
 import 'package:bimir_lock/utils/helper/storage_helper.dart';
 
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
-import 'package:get/get_state_manager/get_state_manager.dart';
-import 'package:get/state_manager.dart';
+
+import 'package:get/get.dart';
+import 'package:go_router/go_router.dart';
 import 'package:image_picker/image_picker.dart';
 
+import '../../models/quote_category_model.dart';
+import '../../models/user_model.dart';
+import '../../views/introScreen/welcome_page.dart';
+
 class AddUserDetailController extends GetxController {
+  QuotesCategoryController qcc = Get.find<QuotesCategoryController>();
   TextEditingController userNameController = TextEditingController();
   TextEditingController dobController = TextEditingController();
   GlobalKey<FormState> formKey = GlobalKey<FormState>();
   File? userAvatar;
+  RxBool isLoading = false.obs;
   Future pickImage(ImageSource source) async {
     try {
       XFile? pickedImage = await ImagePicker().pickImage(source: source);
@@ -26,20 +36,34 @@ class AddUserDetailController extends GetxController {
     }
   }
 
-  onSaveUserDetail() async {
+  onSaveUserDetail(BuildContext context) async {
+    CoreController cc = Get.find<CoreController>();
     FocusManager.instance.primaryFocus!.unfocus();
     if (userAvatar == null) return Fluttertoast.showToast(msg: "Upload Profile Image to save user");
     if (formKey.currentState!.validate()) {
+      isLoading.value = true;
       String imagePath = await StorageHelper().storeImage(userAvatar!);
       User userModel = User(
         dob: dobController.text,
         userName: userNameController.text,
         userAvatar: imagePath,
       );
-      await StorageHelper().setUser(userModel);
-      //load quotes
       //save user
-      //load initial quote
+      await StorageHelper().setUser(userModel);
+      //load quotes;
+      try {
+        QuotesCategoryController c = Get.find<QuotesCategoryController>();
+        await c.loadQuotes();
+        await cc.loadCurrentUser();
+      } catch (e) {
+        log("========>>>>>> Error: $e");
+      }
+      try {
+        cc.loadInitQuote().then((value) => context.go(WelcomePage.routeName));
+      } catch (e) {
+        log("============>>>Error while loading initial quotes");
+      }
     }
+    isLoading.value = false;
   }
 }
