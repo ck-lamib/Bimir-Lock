@@ -14,10 +14,11 @@ class CoreController extends GetxController {
 
   @override
   void onInit() async {
-    loadCurrentUser();
+    await loadCurrentUser();
+    await loadInitQuote();
+    await loadInitialTheme();
     await dataBaseHelper.getDatabase;
-    loadInitQuote();
-    loadInitialTheme();
+
     super.onInit();
   }
 
@@ -46,6 +47,7 @@ class CoreController extends GetxController {
 
   loadInitialTheme() async {
     bool darkMode = await storageHelper.readTheme();
+    print("dark mode: $darkMode");
     if (darkMode) {
       toggleThemeMode(ThemeMode.dark);
     } else {

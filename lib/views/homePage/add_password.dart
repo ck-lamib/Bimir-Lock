@@ -145,7 +145,7 @@ class AddPasswordPage extends StatelessWidget {
                     height: 50,
                   ),
                   Obx(
-                    () => c.isLoading.value
+                    () => c.isButtonLoading.value
                         ? const FloatingActionButton.extended(
                             onPressed: null,
                             label: SizedBox(

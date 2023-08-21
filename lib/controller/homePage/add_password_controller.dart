@@ -19,7 +19,7 @@ class AddPasswordController extends GetxController {
   // TextEditingController reTypePasswordController = TextEditingController(text: "password");
   RxBool hidePassword = true.obs;
   RxBool hideRetypePassword = true.obs;
-  RxBool isLoading = false.obs;
+  RxBool isButtonLoading = false.obs;
   GlobalKey<FormState> formKey = GlobalKey<FormState>();
 
   togglePassword() {
@@ -32,7 +32,7 @@ class AddPasswordController extends GetxController {
 
   onSavePassword() async {
     if (formKey.currentState!.validate()) {
-      isLoading.value = true;
+      isButtonLoading.value = true;
       PasswordTable passwordTable = PasswordTable(
           title: mediaTitleController.text,
           email: emailController.text,
@@ -41,9 +41,9 @@ class AddPasswordController extends GetxController {
       DataBaseHelper dataBaseHelper = DataBaseHelper();
       await dataBaseHelper.insertPassword(passwordTable);
 
-      isLoading.value = false;
+      isButtonLoading.value = false;
       homePageController.loadPasswords().whenComplete(() => navigatorKey.currentState!.pop());
     }
-    isLoading.value = false;
+    isButtonLoading.value = false;
   }
 }

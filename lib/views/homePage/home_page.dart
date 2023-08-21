@@ -1,6 +1,7 @@
 import 'package:bimir_lock/controller/homePage/home_page_controller.dart';
 import 'package:bimir_lock/main.dart';
 import 'package:bimir_lock/views/homePage/add_password.dart';
+import 'package:bimir_lock/widgets/empty_state.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
@@ -64,10 +65,14 @@ class HomePage extends StatelessWidget {
           padding: const EdgeInsets.only(left: 20, right: 20, top: 20),
           child: Column(
             children: [
-              const BimirLockTextField(
-                prefixIcon: Icon(Icons.search),
+              BimirLockTextField(
+                prefixIcon: const Icon(Icons.search),
+                controller: c.searchEditingController,
                 label: "Search",
                 hint: "Facebook",
+                onValueChange: (value) {
+                  return c.searchPassword(value);
+                },
               ),
               const SizedBox(
                 height: 30,
@@ -77,15 +82,41 @@ class HomePage extends StatelessWidget {
                 child: RefreshIndicator(
                   onRefresh: () async {
                     await c.loadPasswords();
+                    c.searchEditingController.clear();
+                    c.searchPassword("");
                   },
-                  child: ListView.builder(
-                    physics: const BouncingScrollPhysics(),
-                    shrinkWrap: true,
-                    itemCount: 7,
-                    itemBuilder: (context, index) {
-                      return const SlidableListTile();
-                    },
-                  ),
+                  child: Obx(() => c.loading
+                      ? const Center(
+                          child: CircularProgressIndicator(),
+                        )
+                      : c.searchedValue.isNotEmpty
+                          ? c.searchedPasswords.isNotEmpty
+                              ? ListView.builder(
+                                  physics: const AlwaysScrollableScrollPhysics(),
+                                  shrinkWrap: false,
+                                  itemCount: c.searchedPasswords.length,
+                                  itemBuilder: (context, index) {
+                                    return SlidableListTile(
+                                      passwordTable: c.searchedPasswords[index],
+                                    );
+                                  },
+                                )
+                              : const EmptyState(
+                                  description:
+                                      "Password you are searching cannot be found.\nPlease add passwords")
+                          : c.passwords!.isEmpty
+                              ? const EmptyState(
+                                  description: "Password cannot be found.\nPlease add passwords")
+                              : ListView.builder(
+                                  physics: const AlwaysScrollableScrollPhysics(),
+                                  shrinkWrap: false,
+                                  itemCount: c.passwords!.length,
+                                  itemBuilder: (context, index) {
+                                    return SlidableListTile(
+                                      passwordTable: c.passwords![index],
+                                    );
+                                  },
+                                )),
                 ),
               )
 

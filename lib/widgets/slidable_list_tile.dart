@@ -1,12 +1,12 @@
+import 'package:bimir_lock/models/password_table.dart';
 import 'package:bimir_lock/widgets/pin_input_dialog.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_slidable/flutter_slidable.dart';
 
 class SlidableListTile extends StatelessWidget {
-  const SlidableListTile({
-    super.key,
-  });
+  const SlidableListTile({super.key, required this.passwordTable});
 
+  final PasswordTable passwordTable;
   @override
   Widget build(BuildContext context) {
     var theme = Theme.of(context);
@@ -96,18 +96,20 @@ class SlidableListTile extends StatelessWidget {
               value: true,
               onChanged: (value) {},
             ),
-            title: const Text(
-              "Facebook",
+            title: Text(
+              passwordTable.title ?? "Media Title",
               overflow: TextOverflow.ellipsis,
-              style: TextStyle(
+              style: const TextStyle(
                 fontSize: 17,
                 fontWeight: FontWeight.bold,
               ),
             ),
-            subtitle: const Text(
-              "bim**",
+            subtitle: Text(
+              passwordTable.userName == null
+                  ? "${passwordTable.email?.substring(0, 3)}***"
+                  : "${passwordTable.userName?.substring(0, 2)}****",
               overflow: TextOverflow.ellipsis,
-              style: TextStyle(
+              style: const TextStyle(
                 fontSize: 15,
               ),
             ),

@@ -24,9 +24,10 @@ class BimirLock extends StatelessWidget {
           theme: lightTheme,
           darkTheme: darkTheme,
           themeMode: cc.themeMode.value,
-          routes: routes,
+          // routes: routes,
           initialRoute: SplashPage.routeName,
           debugShowCheckedModeBanner: false,
+          onGenerateRoute: generatedRoute,
         ));
   }
 }

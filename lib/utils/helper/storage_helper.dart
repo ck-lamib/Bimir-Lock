@@ -47,7 +47,7 @@ class StorageHelper {
 
   Future<bool> readTheme() async {
     final SharedPreferences prefs = await SharedPreferences.getInstance();
-    return prefs.getBool(StorageKey.userThemeKey) ?? true;
+    return prefs.getBool(StorageKey.userThemeKey) ?? false;
   }
 
   Future<bool> removeUser() async {
