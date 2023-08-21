@@ -3,6 +3,7 @@ import 'dart:async';
 import 'package:bimir_lock/models/password_table.dart';
 import 'package:bimir_lock/utils/helper/db_helper.dart';
 import 'package:flutter/material.dart';
+
 import 'package:get/get.dart';
 
 class HomePageController extends GetxController {
@@ -36,6 +37,7 @@ class HomePageController extends GetxController {
   }
 
   searchPassword(String value) {
+    _isLoading.value = true;
     _searchedValue.value = value.toLowerCase();
     if (debounce?.isActive ?? false) debounce?.cancel();
     debounce = Timer(const Duration(milliseconds: 500), () {
@@ -49,31 +51,41 @@ class HomePageController extends GetxController {
         List<PasswordTable> allSearchedPasswords = [];
         if (passwords != null) {
           for (PasswordTable each in passwords!) {
-            print(each.userName);
-            print(each.email);
-            print(each.title);
-            if (each.email != null && each.email!.toLowerCase().contains(_searchedValue.value)) {
+            if (each.email != null &&
+                each.email!.toLowerCase().trim().contains(_searchedValue.value)) {
               // searchedPasswords.add(each);
               allSearchedPasswords.add(each);
             }
             if (each.userName != null &&
-                each.userName!.toLowerCase().contains(_searchedValue.value)) {
+                each.userName!.toLowerCase().trim().contains(_searchedValue.value)) {
               // searchedPasswords.add(each);
               allSearchedPasswords.add(each);
             }
-            if (each.title != null && each.title!.toLowerCase().contains(_searchedValue.value)) {
+            if (each.title != null &&
+                each.title!.toLowerCase().trim().contains(_searchedValue.value)) {
               // searchedPasswords.add(each);
               allSearchedPasswords.add(each);
             }
           }
         }
         searchedPasswords.value = allSearchedPasswords.toSet().toList();
-        print(searchedPasswords.length);
-
-        // print(searchedPasswords);
+        _isLoading.value = false;
       }
     });
   }
 
-  deletePassword() {}
+  Future<bool> deletePassword(PasswordTable passwordTable) async {
+    var success = await dbHelper.deletePassword(passwordTable);
+    return success;
+    // if (success) {
+    //   Fluttertoast.showToast(msg: "Password deleted successfully");
+    // } else {
+    //   Fluttertoast.showToast(msg: "Error encountered while deleting password");
+    // }
+  }
+
+  Future<bool> editPassword(PasswordTable passwordTable) async {
+    var success = await dbHelper.updatePassword(passwordTable);
+    return success;
+  }
 }

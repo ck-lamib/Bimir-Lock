@@ -7,13 +7,25 @@ import 'package:get/get.dart';
 import '../../widgets/custom/custom_text_field.dart';
 
 //this class require argument
-class AddPasswordPage extends StatelessWidget {
+class AddPasswordPage extends StatefulWidget {
   static const String routeName = "/addPasswordPage";
-  final AddPasswordController c = Get.put(AddPasswordController());
-  AddPasswordPage({
+
+  const AddPasswordPage({
     super.key,
   });
 
+  @override
+  State<AddPasswordPage> createState() => _AddPasswordPageState();
+}
+
+class _AddPasswordPageState extends State<AddPasswordPage> {
+  @override
+  void dispose() {
+    // Get.delete<AddPasswordController>();
+    super.dispose();
+  }
+
+  final AddPasswordController c = Get.put(AddPasswordController());
   @override
   Widget build(BuildContext context) {
     var theme = Theme.of(context);

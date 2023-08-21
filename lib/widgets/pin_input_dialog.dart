@@ -9,7 +9,9 @@ class PinInputMenuDialog extends StatelessWidget {
   PinInputMenuDialog({
     super.key,
     required this.onConfirm,
+    this.message,
   });
+  final String? message;
   final GlobalKey<FormState> globalKey = GlobalKey<FormState>();
 
   @override
@@ -51,7 +53,7 @@ class PinInputMenuDialog extends StatelessWidget {
                     children: [
                       GestureDetector(
                         onTap: () {
-                          Navigator.of(context).pop(true);
+                          Navigator.of(context).pop();
                         },
                         child: const Icon(
                           Icons.close,
@@ -63,10 +65,11 @@ class PinInputMenuDialog extends StatelessWidget {
                   const SizedBox(
                     height: 22,
                   ),
-                  const Text(
+                  Text(
                     textAlign: TextAlign.center,
-                    "The password you are trying to access is protected with a pin. Please enter the pin to proceed.",
-                    style: TextStyle(
+                    message ??
+                        "The password you are trying to access is protected with a pin. Please enter the pin to proceed.",
+                    style: const TextStyle(
                       fontSize: 15,
                       fontWeight: FontWeight.w500,
                     ),
@@ -79,7 +82,7 @@ class PinInputMenuDialog extends StatelessWidget {
                     child: Column(
                       children: [
                         AccessPinWidget(
-                          pinController: TextEditingController(),
+                          pinController: textController,
                           validator: Validators.checkPinField,
                         ),
                         const SizedBox(
@@ -97,7 +100,7 @@ class PinInputMenuDialog extends StatelessWidget {
                           onConfirm(textController.text);
                         }
                       },
-                      child: Text("Check Pin")),
+                      child: const Text("Check Pin")),
                 ],
               ),
             ),

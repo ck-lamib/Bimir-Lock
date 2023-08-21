@@ -64,7 +64,7 @@ class DataBaseHelper {
     }
   }
 
-  deletePassword(PasswordTable data) async {
+  Future<bool> deletePassword(PasswordTable data) async {
     try {
       final db = await getDatabase;
 
@@ -73,20 +73,24 @@ class DataBaseHelper {
         where: '${DbConstant.id} = ?',
         whereArgs: [data.id],
       );
+      return true;
     } catch (e) {
       log("===============>>> Error while deleting single password: $e");
+      return false;
     }
   }
 
-  deleteAllPassword() async {
+  Future<bool> deleteAllPassword() async {
     try {
       final db = await getDatabase;
 
       await db.delete(
         DbConstant.passwordTableName,
       );
+      return true;
     } catch (e) {
       log("===============>>> Error while deleting all password: $e");
+      return false;
     }
   }
 
@@ -104,18 +108,20 @@ class DataBaseHelper {
     }
   }
 
-  updatePassword(PasswordTable data) async {
+  Future<bool> updatePassword(PasswordTable data) async {
     try {
       final db = await getDatabase;
-
+      bool success = false;
       await db.update(
         DbConstant.passwordTableName,
         data.toJson(),
         where: '${DbConstant.id} = ?',
         whereArgs: [data.id],
-      );
+      ).whenComplete(() => success = true);
+      return success;
     } catch (e) {
       log("===============>>> Error while updating: $e");
+      return false;
     }
   }
 

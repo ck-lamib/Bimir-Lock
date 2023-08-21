@@ -81,6 +81,7 @@ class HomePage extends StatelessWidget {
               Expanded(
                 child: RefreshIndicator(
                   onRefresh: () async {
+                    FocusManager.instance.primaryFocus!.unfocus();
                     await c.loadPasswords();
                     c.searchEditingController.clear();
                     c.searchPassword("");
@@ -118,8 +119,7 @@ class HomePage extends StatelessWidget {
                                   },
                                 )),
                 ),
-              )
-
+              ),
               // tile
             ],
           ),

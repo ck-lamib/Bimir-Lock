@@ -20,9 +20,9 @@ class _PasswordDetailPageState extends State<PasswordDetailPage> {
   PasswordDetailPageArgument? _passwordDetailPageArgument;
   @override
   void initState() {
-    _passwordDetailPageArgument =
-        ModalRoute.of(context)!.settings.arguments as PasswordDetailPageArgument;
-    editPage.value = _passwordDetailPageArgument!.isEdit;
+    // _passwordDetailPageArgument =
+    //     ModalRoute.of(context)!.settings.arguments as PasswordDetailPageArgument;
+    // editPage.value = _passwordDetailPageArgument!.isEdit;
     super.initState();
   }
 
