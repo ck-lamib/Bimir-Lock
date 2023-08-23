@@ -47,6 +47,7 @@ class _SplashPageState extends State<SplashPage> {
         ),
       ),
       floatingActionButton: SizedBox(
+        key: UniqueKey(),
         // height: 10,
         child: LoadingAnimationWidget.staggeredDotsWave(
           color: Theme.of(context).colorScheme.onSurface.withOpacity(0.8),

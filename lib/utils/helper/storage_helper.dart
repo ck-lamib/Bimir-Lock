@@ -65,7 +65,9 @@ class StorageHelper {
 
   Future<String> storeImage(File file) async {
     var newPath = await file.getNewDbFilePath();
+    print("file path ==> $newPath");
     File newFile = await file.copy(newPath);
+    print("newf ile ==> $newFile");
     return newFile.path;
   }
 }

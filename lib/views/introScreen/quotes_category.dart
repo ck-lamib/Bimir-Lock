@@ -123,6 +123,7 @@ class _QuotesCategoryPageState extends State<QuotesCategoryPage> {
         ),
       ),
       floatingActionButton: FloatingActionButton.extended(
+          key: UniqueKey(),
           onPressed: () {
             c.onGoTap();
           },

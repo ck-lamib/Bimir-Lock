@@ -1,11 +1,19 @@
+import 'dart:io';
+
+import 'package:bimir_lock/core/core_controller.dart';
+import 'package:bimir_lock/main.dart';
 import 'package:bimir_lock/utils/constants.dart';
 import 'package:bimir_lock/utils/image_path.dart';
 import 'package:bimir_lock/widgets/contact_link_widget.dart';
 import 'package:bimir_lock/widgets/drawer_tile.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+
+import '../views/user/add_user_detail.dart';
 
 class BimirLockDrawer extends StatelessWidget {
-  const BimirLockDrawer({
+  final CoreController cc = Get.find<CoreController>();
+  BimirLockDrawer({
     super.key,
   });
 
@@ -28,20 +36,34 @@ class BimirLockDrawer extends StatelessWidget {
                     borderRadius: BorderRadius.circular(60),
                     color: theme.colorScheme.surfaceVariant,
                   ),
-                  child: FittedBox(
-                    child: Icon(
-                      Icons.person_rounded,
-                      color: theme.colorScheme.onSurfaceVariant,
-                    ),
+                  clipBehavior: Clip.antiAlias,
+                  child: GetBuilder<CoreController>(
+                    init: cc,
+                    builder: (cont) => cc.isUserLoggedIn()
+                        ? Image.file(
+                            File(cc.currentUser.value!.userAvatar!),
+                            fit: BoxFit.cover,
+                          )
+                        : FittedBox(
+                            child: Icon(
+                              Icons.person_rounded,
+                              color: theme.colorScheme.onSurfaceVariant,
+                            ),
+                          ),
                   ),
                 ),
               ),
               const SizedBox(
                 height: 10,
               ),
-              DrawerTile(
-                iconData: Icons.person_add_alt_rounded,
-                title: "Edit User detail",
+              InkWell(
+                onTap: () {
+                  navigatorKey.currentState!.pushNamed(AddUserDetailPage.routeName);
+                },
+                child: DrawerTile(
+                  iconData: Icons.person_add_alt_rounded,
+                  title: "Edit User detail",
+                ),
               ),
               DrawerTile(
                 iconData: Icons.password,

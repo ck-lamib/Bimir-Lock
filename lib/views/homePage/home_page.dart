@@ -1,4 +1,7 @@
+import 'dart:io';
+
 import 'package:bimir_lock/controller/homePage/home_page_controller.dart';
+import 'package:bimir_lock/core/core_controller.dart';
 import 'package:bimir_lock/main.dart';
 import 'package:bimir_lock/views/homePage/add_password.dart';
 import 'package:bimir_lock/widgets/empty_state.dart';
@@ -8,6 +11,7 @@ import 'package:get/get.dart';
 import '../../widgets/bimir_lock_drawer.dart';
 import '../../widgets/custom/custom_text_field.dart';
 import '../../widgets/slidable_list_tile.dart';
+import '../user/add_user_detail.dart';
 
 class HomePage extends StatelessWidget {
   static const String routeName = "/homePage";
@@ -15,9 +19,11 @@ class HomePage extends StatelessWidget {
     super.key,
   });
   final HomePageController c = Get.put(HomePageController());
+  final CoreController cc = Get.find<CoreController>();
 
   @override
   Widget build(BuildContext context) {
+    print(cc.currentUser.value?.userAvatar);
     var theme = Theme.of(context);
     return GestureDetector(
       onTap: () => FocusScope.of(context).unfocus(),
@@ -48,11 +54,24 @@ class HomePage extends StatelessWidget {
                   borderRadius: BorderRadius.circular(30),
                   color: theme.colorScheme.onInverseSurface,
                 ),
-                child: const ClipOval(
-                  child: Icon(
-                    Icons.person,
-                    size: 30,
-                  ),
+                child: ClipOval(
+                  child: cc.currentUser.value?.userAvatar == null
+                      ? const Icon(
+                          Icons.person,
+                          size: 30,
+                        )
+                      : GestureDetector(
+                          onTap: () {
+                            navigatorKey.currentState!
+                                .pushNamed(AddUserDetailPage.routeName, arguments: true);
+                          },
+                          child: Image.file(
+                            File(
+                              cc.currentUser.value!.userAvatar!,
+                            ),
+                            fit: BoxFit.cover,
+                          ),
+                        ),
                 ),
               ),
             ),
@@ -69,7 +88,7 @@ class HomePage extends StatelessWidget {
                 prefixIcon: const Icon(Icons.search),
                 controller: c.searchEditingController,
                 label: "Search",
-                hint: "Facebook",
+                hint: "Facebook || name || email",
                 onValueChange: (value) {
                   return c.searchPassword(value);
                 },
@@ -127,6 +146,7 @@ class HomePage extends StatelessWidget {
         resizeToAvoidBottomInset: false,
         floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
         floatingActionButton: FloatingActionButton.extended(
+          key: UniqueKey(),
           onPressed: () {
             navigatorKey.currentState!.pushNamed(AddPasswordPage.routeName);
           },
@@ -135,7 +155,7 @@ class HomePage extends StatelessWidget {
           backgroundColor: theme.colorScheme.onInverseSurface,
           foregroundColor: theme.colorScheme.onSurface,
         ),
-        drawer: const BimirLockDrawer(),
+        drawer: BimirLockDrawer(),
       ),
     );
   }

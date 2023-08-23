@@ -4,7 +4,7 @@ import 'package:bimir_lock/views/homePage/password_detail.dart';
 import 'package:bimir_lock/views/splash_page.dart';
 import 'package:flutter/material.dart';
 
-import '../views/introScreen/add_user_detail.dart';
+import '../views/user/add_user_detail.dart';
 import '../views/introScreen/introduction_page.dart';
 import '../views/introScreen/quotes_category.dart';
 import '../views/introScreen/welcome_page.dart';
@@ -52,7 +52,7 @@ Route<dynamic>? generatedRoute(RouteSettings settings) {
       );
     case AddUserDetailPage.routeName:
       return MaterialPageRoute(
-        builder: (_) => AddUserDetailPage(),
+        builder: (_) => const AddUserDetailPage(),
         settings: RouteSettings(
           arguments: settings.arguments,
         ),
@@ -66,7 +66,7 @@ Route<dynamic>? generatedRoute(RouteSettings settings) {
       );
     case AddPasswordPage.routeName:
       return MaterialPageRoute(
-        builder: (_) => AddPasswordPage(),
+        builder: (_) => const AddPasswordPage(),
         settings: RouteSettings(
           arguments: settings.arguments,
         ),

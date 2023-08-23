@@ -16,7 +16,7 @@ class PasswordDetailPage extends StatefulWidget {
 }
 
 class _PasswordDetailPageState extends State<PasswordDetailPage> {
-  RxBool editPage = false.obs;
+  RxBool isEdit = false.obs;
   PasswordDetailPageArgument? _passwordDetailPageArgument;
   @override
   void initState() {
@@ -204,6 +204,7 @@ class _PasswordDetailPageState extends State<PasswordDetailPage> {
                     height: 80,
                   ),
                   FloatingActionButton.extended(
+                      key: UniqueKey(),
                       onPressed: () {},
                       label: const Text(
                         "Save",

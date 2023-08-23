@@ -8,7 +8,7 @@ import 'package:fluttertoast/fluttertoast.dart';
 import 'package:get/get.dart';
 
 import '../../repo/remoteRepo/quotes_remote_datasource.dart';
-import '../../views/introScreen/add_user_detail.dart';
+import '../../views/user/add_user_detail.dart';
 
 class QuotesCategoryController extends GetxController {
   final List quoteItems = [

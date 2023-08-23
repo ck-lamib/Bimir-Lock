@@ -167,6 +167,7 @@ class _AddPasswordPageState extends State<AddPasswordPage> {
                             ),
                           )
                         : FloatingActionButton.extended(
+                            key: UniqueKey(),
                             onPressed: c.onSavePassword,
                             label: const Text(
                               "Save",
