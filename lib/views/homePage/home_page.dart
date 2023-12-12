@@ -7,6 +7,7 @@ import 'package:bimir_lock/views/homePage/add_password.dart';
 import 'package:bimir_lock/widgets/empty_state.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:pinput/pinput.dart';
 
 import '../../widgets/bimir_lock_drawer.dart';
 import '../../widgets/custom/custom_text_field.dart';
@@ -29,6 +30,7 @@ class HomePage extends StatelessWidget {
       onTap: () => FocusScope.of(context).unfocus(),
       child: Scaffold(
         appBar: AppBar(
+          scrolledUnderElevation: 0,
           leading: Padding(
             padding: const EdgeInsets.only(left: 15),
             child: Builder(builder: (context) {
@@ -62,8 +64,9 @@ class HomePage extends StatelessWidget {
                         )
                       : GestureDetector(
                           onTap: () {
-                            navigatorKey.currentState!
-                                .pushNamed(AddUserDetailPage.routeName, arguments: true);
+                            navigatorKey.currentState!.pushNamed(
+                                AddUserDetailPage.routeName,
+                                arguments: true);
                           },
                           child: Image.file(
                             File(
@@ -112,10 +115,27 @@ class HomePage extends StatelessWidget {
                       : c.searchedValue.isNotEmpty
                           ? c.searchedPasswords.isNotEmpty
                               ? ListView.builder(
-                                  physics: const AlwaysScrollableScrollPhysics(),
+                                  physics:
+                                      const AlwaysScrollableScrollPhysics(),
                                   shrinkWrap: false,
-                                  itemCount: c.searchedPasswords.length,
+                                  itemCount: c.searchedPasswords.length + 1,
                                   itemBuilder: (context, index) {
+                                    print(c.searchedPasswords.length);
+                                    if (c.searchedPasswords.length == index) {
+                                      print("uess");
+                                      return Column(
+                                        children: [
+                                          SlidableListTile(
+                                            passwordTable:
+                                                c.searchedPasswords[index],
+                                          ),
+                                          SizedBox(
+                                            height: 100,
+                                          ),
+                                        ],
+                                      );
+                                    }
+
                                     return SlidableListTile(
                                       passwordTable: c.searchedPasswords[index],
                                     );
@@ -126,9 +146,11 @@ class HomePage extends StatelessWidget {
                                       "Password you are searching cannot be found.\nPlease add passwords")
                           : c.passwords!.isEmpty
                               ? const EmptyState(
-                                  description: "Password cannot be found.\nPlease add passwords")
+                                  description:
+                                      "Password cannot be found.\nPlease add passwords")
                               : ListView.builder(
-                                  physics: const AlwaysScrollableScrollPhysics(),
+                                  physics:
+                                      const AlwaysScrollableScrollPhysics(),
                                   shrinkWrap: false,
                                   itemCount: c.passwords!.length,
                                   itemBuilder: (context, index) {
@@ -146,6 +168,7 @@ class HomePage extends StatelessWidget {
         resizeToAvoidBottomInset: false,
         floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
         floatingActionButton: FloatingActionButton.extended(
+          heroTag: "addPasswordButton",
           key: UniqueKey(),
           onPressed: () {
             navigatorKey.currentState!.pushNamed(AddPasswordPage.routeName);

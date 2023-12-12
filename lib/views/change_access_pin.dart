@@ -13,6 +13,7 @@ class ChangeAccessPinPage extends StatelessWidget {
     var theme = Theme.of(context);
     return Scaffold(
         appBar: AppBar(
+          scrolledUnderElevation: 0,
           leading: Padding(
             padding: const EdgeInsets.only(left: 15),
             child: IconButton(
@@ -87,8 +88,8 @@ class ChangeAccessPinPage extends StatelessWidget {
                           AccessPinWidget(
                               pinController: reAccessPinController,
                               onCompleted: (p0) {},
-                              validator: (value) =>
-                                  Validators.checkConfirmPin(accessPinController.text, value)),
+                              validator: (value) => Validators.checkConfirmPin(
+                                  accessPinController.text, value)),
                         ],
                       ),
                     ),
@@ -98,6 +99,7 @@ class ChangeAccessPinPage extends StatelessWidget {
                   height: 80,
                 ),
                 FloatingActionButton.extended(
+                    heroTag: "saveButton",
                     onPressed: () {
                       if (formKey.currentState!.validate()) {
                         print("form is nice");

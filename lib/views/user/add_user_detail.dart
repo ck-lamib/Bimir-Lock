@@ -34,6 +34,7 @@ class _AddUserDetailPageState extends State<AddUserDetailPage> {
       onTap: () => FocusScope.of(context).unfocus(),
       child: Scaffold(
         appBar: AppBar(
+          scrolledUnderElevation: 0,
           leading: Padding(
             padding: const EdgeInsets.only(left: 15),
             child: IconButton(
@@ -99,7 +100,8 @@ class _AddUserDetailPageState extends State<AddUserDetailPage> {
                                             ? FittedBox(
                                                 child: Icon(
                                                   Icons.person_rounded,
-                                                  color: theme.colorScheme.background,
+                                                  color: theme
+                                                      .colorScheme.background,
                                                 ),
                                               )
                                             : Image.file(
@@ -129,7 +131,8 @@ class _AddUserDetailPageState extends State<AddUserDetailPage> {
                                       child: Card(
                                         margin: EdgeInsets.zero,
                                         shape: RoundedRectangleBorder(
-                                          borderRadius: BorderRadius.circular(360),
+                                          borderRadius:
+                                              BorderRadius.circular(360),
                                         ),
                                         child: IconButton(
                                           icon: const Icon(
@@ -142,29 +145,44 @@ class _AddUserDetailPageState extends State<AddUserDetailPage> {
                                               showCustomDialog(
                                                 context: context,
                                                 content: Column(
-                                                  mainAxisSize: MainAxisSize.min,
+                                                  mainAxisSize:
+                                                      MainAxisSize.min,
                                                   children: [
                                                     const ListTile(
-                                                      title: Text("Choose image source",
-                                                          textAlign: TextAlign.center,
+                                                      title: Text(
+                                                          "Choose image source",
+                                                          textAlign:
+                                                              TextAlign.center,
                                                           style: TextStyle(
-                                                            fontWeight: FontWeight.w600,
+                                                            fontWeight:
+                                                                FontWeight.w600,
                                                           )),
                                                     ),
                                                     ListTile(
-                                                      title: const Text("Camera"),
-                                                      trailing: const Icon(Icons.chevron_right),
+                                                      title:
+                                                          const Text("Camera"),
+                                                      trailing: const Icon(
+                                                          Icons.chevron_right),
                                                       onTap: () async {
-                                                        await c.pickImage(ImageSource.camera);
-                                                        if (context.mounted) Navigator.pop(context);
+                                                        await c.pickImage(
+                                                            ImageSource.camera);
+                                                        if (context.mounted)
+                                                          Navigator.pop(
+                                                              context);
                                                       },
                                                     ),
                                                     ListTile(
-                                                      title: const Text("Gallery"),
-                                                      trailing: const Icon(Icons.chevron_right),
+                                                      title:
+                                                          const Text("Gallery"),
+                                                      trailing: const Icon(
+                                                          Icons.chevron_right),
                                                       onTap: () async {
-                                                        await c.pickImage(ImageSource.gallery);
-                                                        if (context.mounted) Navigator.pop(context);
+                                                        await c.pickImage(
+                                                            ImageSource
+                                                                .gallery);
+                                                        if (context.mounted)
+                                                          Navigator.pop(
+                                                              context);
                                                       },
                                                     ),
                                                   ],
@@ -226,17 +244,24 @@ class _AddUserDetailPageState extends State<AddUserDetailPage> {
                                       if (isViewUser!) {
                                         return;
                                       } else {
-                                        DateTime? pickedDate = await showDatePicker(
+                                        DateTime? pickedDate =
+                                            await showDatePicker(
                                           context: context,
-                                          initialDate: DateTime(DateTime.now().year),
-                                          firstDate: DateTime(DateTime.now().year - 100),
-                                          lastDate: DateTime(DateTime.now().year),
+                                          initialDate:
+                                              DateTime(DateTime.now().year),
+                                          firstDate: DateTime(
+                                              DateTime.now().year - 100),
+                                          lastDate:
+                                              DateTime(DateTime.now().year),
                                         );
                                         if (pickedDate != null) {
-                                          c.dobController.text = pickedDate.formatDate();
-                                          FocusManager.instance.primaryFocus?.unfocus();
+                                          c.dobController.text =
+                                              pickedDate.formatDate();
+                                          FocusManager.instance.primaryFocus
+                                              ?.unfocus();
                                         } else {
-                                          FocusManager.instance.primaryFocus?.unfocus();
+                                          FocusManager.instance.primaryFocus
+                                              ?.unfocus();
                                           log("==============>>>>>>> Date is not selected");
                                         }
                                       }
@@ -255,6 +280,7 @@ class _AddUserDetailPageState extends State<AddUserDetailPage> {
                             : Obx(
                                 () => c.isLoading.value
                                     ? FloatingActionButton.extended(
+                                        heroTag: "savebuttonLoading",
                                         key: UniqueKey(),
                                         onPressed: null,
                                         label: const SizedBox(
@@ -264,9 +290,12 @@ class _AddUserDetailPageState extends State<AddUserDetailPage> {
                                         ),
                                       )
                                     : FloatingActionButton.extended(
+                                        heroTag: "saveUserbutton",
                                         key: UniqueKey(),
-                                        onPressed: () => c.onSaveUserDetail(context),
-                                        icon: const Icon(Icons.subdirectory_arrow_right_rounded),
+                                        onPressed: () =>
+                                            c.onSaveUserDetail(context),
+                                        icon: const Icon(Icons
+                                            .subdirectory_arrow_right_rounded),
                                         label: const Text(
                                           "Save",
                                           style: TextStyle(

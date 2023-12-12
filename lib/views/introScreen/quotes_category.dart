@@ -24,6 +24,7 @@ class _QuotesCategoryPageState extends State<QuotesCategoryPage> {
     var theme = Theme.of(context);
     return Scaffold(
       appBar: AppBar(
+        scrolledUnderElevation: 0,
         leading: Padding(
           padding: const EdgeInsets.only(left: 15),
           child: IconButton(
@@ -96,7 +97,10 @@ class _QuotesCategoryPageState extends State<QuotesCategoryPage> {
                             alignment: Alignment.center,
                             child: Text(
                               c.quoteItems[index][0].toString().toUpperCase() +
-                                  c.quoteItems[index].toString().substring(1).toLowerCase(),
+                                  c.quoteItems[index]
+                                      .toString()
+                                      .substring(1)
+                                      .toLowerCase(),
                             ),
                           ),
                         ),
@@ -105,12 +109,12 @@ class _QuotesCategoryPageState extends State<QuotesCategoryPage> {
                         right: 15,
                         top: 10,
                         child: GetBuilder<QuotesCategoryController>(
-                          builder: ((controller) =>
-                              controller.isSelected(controller.quoteItems[index])
-                                  ? const Icon(
-                                      Icons.task_alt_rounded,
-                                    )
-                                  : Container()),
+                          builder: ((controller) => controller
+                                  .isSelected(controller.quoteItems[index])
+                              ? const Icon(
+                                  Icons.task_alt_rounded,
+                                )
+                              : Container()),
                         ),
                       ),
                     ],
@@ -123,6 +127,7 @@ class _QuotesCategoryPageState extends State<QuotesCategoryPage> {
         ),
       ),
       floatingActionButton: FloatingActionButton.extended(
+          heroTag: "goButtonLoading",
           key: UniqueKey(),
           onPressed: () {
             c.onGoTap();

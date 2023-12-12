@@ -29,7 +29,6 @@ environment:
 # versions available, run `flutter pub outdated`.
 dependencies:
   auto_size_text: ^3.0.0
-  cached_network_image: ^3.2.3
   cupertino_icons: ^1.0.2
   encrypt: ^5.0.1
   flutter:
@@ -45,13 +44,13 @@ dependencies:
   loading_animation_widget: ^1.2.0+4
   local_auth: ^2.1.6
   lottie: ^2.6.0
-  pinput: ^2.2.31
+  pinput: ^3.0.1
   shared_preferences: ^2.2.0
   sqflite: ^2.3.0
   url_launcher: ^6.1.12
 
 dev_dependencies:
-  flutter_lints: ^2.0.0
+  flutter_lints: ^3.0.1
   flutter_test:
     sdk: flutter
 

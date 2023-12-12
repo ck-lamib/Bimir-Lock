@@ -21,7 +21,7 @@ class DrawerTile extends StatelessWidget {
       margin: const EdgeInsets.only(top: 30),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
-        crossAxisAlignment: CrossAxisAlignment.start,
+        crossAxisAlignment: CrossAxisAlignment.center,
         children: [
           Row(
             children: [
@@ -35,7 +35,8 @@ class DrawerTile extends StatelessWidget {
               ),
               Text(
                 title,
-                style: const TextStyle(fontSize: 17, fontWeight: FontWeight.w400),
+                style:
+                    const TextStyle(fontSize: 17, fontWeight: FontWeight.w400),
               ),
             ],
           ),
@@ -45,12 +46,13 @@ class DrawerTile extends StatelessWidget {
           // ),
           hasSwitch
               ? Transform.scale(
-                  alignment: Alignment.topRight,
+                  alignment: Alignment.centerRight,
                   scale: 0.6,
                   child: Container(
                     padding: const EdgeInsets.all(0),
                     child: Obx(() => Switch(
-                          materialTapTargetSize: MaterialTapTargetSize.shrinkWrap,
+                          materialTapTargetSize:
+                              MaterialTapTargetSize.shrinkWrap,
                           value: cc.themeMode.value == ThemeMode.dark,
                           onChanged: (value) {
                             cc.toggleThemeMode(

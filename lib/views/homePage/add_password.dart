@@ -33,6 +33,7 @@ class _AddPasswordPageState extends State<AddPasswordPage> {
       onTap: () => FocusScope.of(context).unfocus(),
       child: Scaffold(
         appBar: AppBar(
+          scrolledUnderElevation: 0,
           leading: Padding(
             padding: const EdgeInsets.only(left: 15),
             child: IconButton(
@@ -159,6 +160,7 @@ class _AddPasswordPageState extends State<AddPasswordPage> {
                   Obx(
                     () => c.isButtonLoading.value
                         ? const FloatingActionButton.extended(
+                            heroTag: "savePasswordButtonLoading",
                             onPressed: null,
                             label: SizedBox(
                               height: 20,
@@ -167,6 +169,7 @@ class _AddPasswordPageState extends State<AddPasswordPage> {
                             ),
                           )
                         : FloatingActionButton.extended(
+                            heroTag: "savePasswordButton",
                             key: UniqueKey(),
                             onPressed: c.onSavePassword,
                             label: const Text(
@@ -177,7 +180,10 @@ class _AddPasswordPageState extends State<AddPasswordPage> {
                               ),
                             ),
                           ),
-                  )
+                  ),
+                  const SizedBox(
+                    height: 50,
+                  ),
                 ],
               ),
             ),

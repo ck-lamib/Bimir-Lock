@@ -1,4 +1,5 @@
 import 'package:bimir_lock/models/quote_model.dart';
+import 'package:bimir_lock/repo/remoteRepo/quotes_remote_datasource.dart';
 import 'package:bimir_lock/utils/helper/db_helper.dart';
 import 'package:bimir_lock/utils/helper/storage_helper.dart';
 import 'package:flutter/material.dart';
@@ -29,7 +30,9 @@ class CoreController extends GetxController {
   Future loadInitQuote() async {
     initialQuote.value = await dataBaseHelper.getinitialQuotes();
     return initialQuote.value ??
-        Quote(quote: "The body achieves what the mind believes.", author: "Erin Gray");
+        Quote(
+            quote: "The body achieves what the mind believes.",
+            author: "Erin Gray");
   }
 
   bool isUserLoggedIn() {

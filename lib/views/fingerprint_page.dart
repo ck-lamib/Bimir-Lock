@@ -26,7 +26,8 @@ class _MyAppState extends State<MyApp> {
   Future<void> checkDeviceSupport() async {
     try {
       final bool canAuthenticateWithBiometrics = await auth.canCheckBiometrics;
-      final bool canAuthenticate = canAuthenticateWithBiometrics || await auth.isDeviceSupported();
+      final bool canAuthenticate =
+          canAuthenticateWithBiometrics || await auth.isDeviceSupported();
       if (canAuthenticate) {
         print("support");
       } else {
@@ -48,7 +49,8 @@ class _MyAppState extends State<MyApp> {
         _authorized = 'Authenticating';
       });
       authenticated = await auth.authenticate(
-        localizedReason: 'Scan your fingerprint (or face or whatever) to authenticate',
+        localizedReason:
+            'Scan your fingerprint (or face or whatever) to authenticate',
         options: const AuthenticationOptions(
           stickyAuth: true,
           biometricOnly: true,
@@ -71,7 +73,8 @@ class _MyAppState extends State<MyApp> {
       return;
     }
 
-    final String message = authenticated ? 'Authorized' : 'Failed to Authorized';
+    final String message =
+        authenticated ? 'Authorized' : 'Failed to Authorized';
     setState(() {
       _authorized = message;
     });
@@ -96,7 +99,9 @@ class _MyAppState extends State<MyApp> {
                 child: Row(
                   mainAxisSize: MainAxisSize.min,
                   children: <Widget>[
-                    Text(_isAuthenticating ? 'Cancel' : 'Authenticate: biometrics only'),
+                    Text(_isAuthenticating
+                        ? 'Cancel'
+                        : 'Authenticate: biometrics only'),
                     const Icon(Icons.fingerprint),
                   ],
                 ),
