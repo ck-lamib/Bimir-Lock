@@ -169,7 +169,6 @@ class HomePage extends StatelessWidget {
         floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
         floatingActionButton: FloatingActionButton.extended(
           heroTag: "addPasswordButton",
-          key: UniqueKey(),
           onPressed: () {
             navigatorKey.currentState!.pushNamed(AddPasswordPage.routeName);
           },

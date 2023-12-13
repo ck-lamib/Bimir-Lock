@@ -62,16 +62,20 @@ class SlidableListTile extends StatelessWidget {
                                       if (pin == "1234") {
                                         Navigator.pop(context, true);
                                       } else {
-                                        Fluttertoast.showToast(msg: "invalid pin");
+                                        Fluttertoast.showToast(
+                                            msg: "invalid pin");
                                       }
                                     },
                                   );
                                 });
                             if (pinValid ?? false) {
-                              if (context.mounted) Navigator.pop(context, false);
-                              navigatorKey.currentState!.pushNamed(PasswordDetailPage.routeName);
+                              if (context.mounted)
+                                Navigator.pop(context, false);
+                              navigatorKey.currentState!
+                                  .pushNamed(PasswordDetailPage.routeName);
                             } else {
-                              if (context.mounted) Navigator.pop(context, false);
+                              if (context.mounted)
+                                Navigator.pop(context, false);
                             }
                           },
                           child: const Text('Yes'),
@@ -115,17 +119,21 @@ class SlidableListTile extends StatelessWidget {
                                         if (pin == "1234") {
                                           Navigator.pop(context, true);
                                         } else {
-                                          Fluttertoast.showToast(msg: "invalid pin");
+                                          Fluttertoast.showToast(
+                                              msg: "invalid pin");
                                           // Navigator.pop(context, false);
                                         }
                                       },
                                     );
                                   });
                               if (pinValid ?? false) {
-                                if (context.mounted) Navigator.pop(context, false);
-                                navigatorKey.currentState!.pushNamed(PasswordDetailPage.routeName);
+                                if (context.mounted)
+                                  Navigator.pop(context, false);
+                                navigatorKey.currentState!
+                                    .pushNamed(PasswordDetailPage.routeName);
                               } else {
-                                if (context.mounted) Navigator.pop(context, false);
+                                if (context.mounted)
+                                  Navigator.pop(context, false);
                               }
                             },
                             child: const Text('Yes'),
@@ -177,12 +185,14 @@ class SlidableListTile extends StatelessWidget {
                                       if (pin == "1234") {
                                         Navigator.pop(context, true);
                                       } else {
-                                        Fluttertoast.showToast(msg: "invalid pin");
+                                        Fluttertoast.showToast(
+                                            msg: "invalid pin");
                                       }
                                     },
                                   );
                                 });
-                            if (context.mounted) Navigator.pop(context, pinValid ?? false);
+                            if (context.mounted)
+                              Navigator.pop(context, pinValid ?? false);
                           },
                           child: const Text('OK'),
                         ),
@@ -231,7 +241,8 @@ class SlidableListTile extends StatelessWidget {
                                         if (pin == "1234") {
                                           Navigator.pop(context, true);
                                         } else {
-                                          Fluttertoast.showToast(msg: "invalid pin");
+                                          Fluttertoast.showToast(
+                                              msg: "invalid pin");
                                           // Navigator.pop(context, false);
                                         }
                                       },
@@ -240,9 +251,11 @@ class SlidableListTile extends StatelessWidget {
                               if (pinValid ?? false) {
                                 hc.deletePassword(passwordTable);
                                 hc.passwords?.remove(passwordTable);
-                                if (context.mounted) Navigator.pop(context, true);
+                                if (context.mounted)
+                                  Navigator.pop(context, true);
                               } else {
-                                if (context.mounted) Navigator.pop(context, true);
+                                if (context.mounted)
+                                  Navigator.pop(context, true);
                               }
                               // if (context.mounted) Navigator.pop(context, pinValid ?? false);
 
@@ -289,11 +302,11 @@ class SlidableListTile extends StatelessWidget {
               ),
             ),
             subtitle: Text(
-              passwordTable.userName == null
-                  ? passwordTable.email!.substring(0, 3).padRight(6, "*")
-                  : passwordTable.userName!.length < 3
-                      ? passwordTable.userName!.padRight(6, "*")
-                      : passwordTable.userName!.substring(0, 3).padRight(6, "*"),
+              // passwordTable.userName == null
+              // ? passwordTable.email!.substring(0, 3).padRight(6, "*")
+              passwordTable.userName!.length < 3
+                  ? passwordTable.userName!.padRight(6, "*")
+                  : passwordTable.userName!.substring(0, 3).padRight(6, "*"),
               overflow: TextOverflow.ellipsis,
               style: const TextStyle(
                 fontSize: 15,

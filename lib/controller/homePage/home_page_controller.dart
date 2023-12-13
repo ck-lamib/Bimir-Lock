@@ -51,18 +51,24 @@ class HomePageController extends GetxController {
         List<PasswordTable> allSearchedPasswords = [];
         if (passwords != null) {
           for (PasswordTable each in passwords!) {
-            if (each.email != null &&
-                each.email!.toLowerCase().trim().contains(_searchedValue.value)) {
-              // searchedPasswords.add(each);
-              allSearchedPasswords.add(each);
-            }
+            // if (each.email != null &&
+            //     each.email!.toLowerCase().trim().contains(_searchedValue.value)) {
+            //   // searchedPasswords.add(each);
+            //   allSearchedPasswords.add(each);
+            // }
             if (each.userName != null &&
-                each.userName!.toLowerCase().trim().contains(_searchedValue.value)) {
+                each.userName!
+                    .toLowerCase()
+                    .trim()
+                    .contains(_searchedValue.value)) {
               // searchedPasswords.add(each);
               allSearchedPasswords.add(each);
             }
             if (each.title != null &&
-                each.title!.toLowerCase().trim().contains(_searchedValue.value)) {
+                each.title!
+                    .toLowerCase()
+                    .trim()
+                    .contains(_searchedValue.value)) {
               // searchedPasswords.add(each);
               allSearchedPasswords.add(each);
             }

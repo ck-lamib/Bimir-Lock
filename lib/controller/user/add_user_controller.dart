@@ -23,6 +23,7 @@ class AddUserDetailController extends GetxController {
   late TextEditingController dobController = TextEditingController();
   RxBool isPageLoading = false.obs;
   File? userAvatar;
+  File? initialUserAvatar;
   RxBool isLoading = false.obs;
   @override
   void onInit() async {
@@ -41,8 +42,10 @@ class AddUserDetailController extends GetxController {
       String dob = cc.currentUser.value!.dob!;
       userNameController = TextEditingController(text: userName);
       dobController = TextEditingController(text: dob);
-      userAvatar =
-          cc.currentUser.value?.userAvatar != null ? File(cc.currentUser.value!.userAvatar!) : null;
+      userAvatar = cc.currentUser.value?.userAvatar != null
+          ? File(cc.currentUser.value!.userAvatar!)
+          : null;
+      initialUserAvatar = userAvatar;
     } else {
       userNameController = TextEditingController();
       dobController = TextEditingController();
@@ -77,10 +80,18 @@ class AddUserDetailController extends GetxController {
 
   onSaveUserDetail(BuildContext context) async {
     FocusManager.instance.primaryFocus!.unfocus();
-    if (userAvatar == null) return Fluttertoast.showToast(msg: "Upload Profile Image to save user");
+    if (userAvatar == null) {
+      return Fluttertoast.showToast(msg: "Upload Profile Image to save user");
+    }
     if (formKey.currentState!.validate()) {
       isLoading.value = true;
-      String imagePath = await StorageHelper().storeImage(userAvatar!);
+      String imagePath = "";
+      if (initialUserAvatar?.path == userAvatar?.path) {
+        imagePath = userAvatar!.path;
+      } else {
+        imagePath = await StorageHelper().storeImage(userAvatar!);
+      }
+
       User userModel = User(
         dob: dobController.text,
         userName: userNameController.text,
@@ -106,7 +117,8 @@ class AddUserDetailController extends GetxController {
         }
         try {
           cc.loadInitQuote().then((value) => navigatorKey.currentState!
-              .pushNamedAndRemoveUntil(WelcomePage.routeName, (route) => false));
+              .pushNamedAndRemoveUntil(
+                  WelcomePage.routeName, (route) => false));
         } catch (e) {
           log("============>>>Error while loading initial quotes");
         }

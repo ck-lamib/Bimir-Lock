@@ -3,8 +3,10 @@ import 'dart:developer';
 import 'dart:io';
 
 import 'package:bimir_lock/models/user_model.dart';
+import 'package:bimir_lock/utils/encryption.dart';
 import 'package:bimir_lock/utils/extensions.dart';
 import 'package:bimir_lock/utils/helper/storage_constants.dart';
+import 'package:encrypt/encrypt.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:sqflite/sqflite.dart';
 
@@ -40,6 +42,11 @@ class StorageHelper {
     }
   }
 
+  Future<bool> removeUser() async {
+    final SharedPreferences prefs = await SharedPreferences.getInstance();
+    return prefs.clear();
+  }
+
   saveTheme(bool darkMode) async {
     final SharedPreferences prefs = await SharedPreferences.getInstance();
     await prefs.setBool(StorageKey.userThemeKey, darkMode);
@@ -50,9 +57,32 @@ class StorageHelper {
     return prefs.getBool(StorageKey.userThemeKey) ?? false;
   }
 
-  Future<bool> removeUser() async {
-    final SharedPreferences prefs = await SharedPreferences.getInstance();
-    return prefs.clear();
+  setEncryptedPassword(String password) async {
+    try {
+      final SharedPreferences prefs = await SharedPreferences.getInstance();
+      await prefs
+          .setString(StorageKey.accessPassword,
+              jsonEncode(EncryptData().encryptAES(password).base64))
+          .then((value) => log("=======>>> encrypted Password added"));
+    } catch (e) {
+      log("=================>>>>>> Error while setting encrypted password: $e");
+    }
+  }
+
+  Future<String?> getEncryptedPassword() async {
+    try {
+      final SharedPreferences prefs = await SharedPreferences.getInstance();
+      return EncryptData().decryptAES(
+        Encrypted.fromBase64(
+          await jsonDecode(
+            prefs.getString(StorageKey.accessPassword)!,
+          ),
+        ),
+      );
+    } catch (e) {
+      log("=================>>>>>> Error while getting encrypted Password: $e");
+      return null;
+    }
   }
 
   Future<String> getImageLocation() async {
@@ -60,12 +90,14 @@ class StorageHelper {
     String newImagePath = "$imageDir/imageFolder";
     bool isDirExist = await Directory(newImagePath).exists();
     if (!isDirExist) await Directory(newImagePath).create();
+    print("image Location: $newImagePath");
     return newImagePath;
   }
 
   Future<String> storeImage(File file) async {
     var newPath = await file.getNewDbFilePath();
     print("file path ==> $newPath");
+    print(file.path);
     File newFile = await file.copy(newPath);
     print("newf ile ==> $newFile");
     return newFile.path;

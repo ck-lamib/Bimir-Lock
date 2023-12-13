@@ -1,7 +1,12 @@
+import 'dart:developer';
+import 'dart:typed_data';
+
 import 'package:bimir_lock/models/quote_model.dart';
 import 'package:bimir_lock/repo/remoteRepo/quotes_remote_datasource.dart';
+import 'package:bimir_lock/utils/encryption.dart';
 import 'package:bimir_lock/utils/helper/db_helper.dart';
 import 'package:bimir_lock/utils/helper/storage_helper.dart';
+import 'package:encrypt/encrypt.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
@@ -12,14 +17,15 @@ class CoreController extends GetxController {
   StorageHelper storageHelper = StorageHelper();
   Rx<Quote?> initialQuote = Quote().obs;
   Rx<User?> currentUser = Rxn<User>();
+  String? encryptedPassword;
 
   @override
   void onInit() async {
     await loadCurrentUser();
     await loadInitQuote();
     await loadInitialTheme();
+    await loadEncryptedPassword();
     await dataBaseHelper.getDatabase;
-
     super.onInit();
   }
 
@@ -56,6 +62,11 @@ class CoreController extends GetxController {
     } else {
       toggleThemeMode(ThemeMode.light);
     }
+  }
+
+  loadEncryptedPassword() async {
+    String? pass = await storageHelper.getEncryptedPassword();
+    encryptedPassword = pass;
   }
 
   toggleThemeMode(ThemeMode theme) {

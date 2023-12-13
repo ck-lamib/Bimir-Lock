@@ -8,7 +8,6 @@ import 'package:get/get.dart';
 class AddPasswordController extends GetxController {
   HomePageController homePageController = Get.find<HomePageController>();
   TextEditingController mediaTitleController = TextEditingController();
-  TextEditingController emailController = TextEditingController();
   TextEditingController userNameController = TextEditingController();
   TextEditingController passwordController = TextEditingController();
   TextEditingController reTypePasswordController = TextEditingController();
@@ -35,14 +34,15 @@ class AddPasswordController extends GetxController {
       isButtonLoading.value = true;
       PasswordTable passwordTable = PasswordTable(
           title: mediaTitleController.text,
-          email: emailController.text,
           userName: userNameController.text,
           password: passwordController.text);
       DataBaseHelper dataBaseHelper = DataBaseHelper();
       await dataBaseHelper.insertPassword(passwordTable);
 
       isButtonLoading.value = false;
-      homePageController.loadPasswords().whenComplete(() => navigatorKey.currentState!.pop());
+      homePageController
+          .loadPasswords()
+          .whenComplete(() => navigatorKey.currentState!.pop());
     }
     isButtonLoading.value = false;
   }

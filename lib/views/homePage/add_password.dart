@@ -100,22 +100,22 @@ class _AddPasswordPageState extends State<AddPasswordPage> {
                               readOnly: false,
                               validator: Validators.checkFieldEmpty,
                             ),
+                            // const SizedBox(
+                            //   height: 40,
+                            // ),
+                            // BimirLockTextField(
+                            //   label: "Email",
+                            //   hint: "bimal@gmail.com",
+                            //   textInputType: TextInputType.emailAddress,
+                            //   controller: c.emailController,
+                            //   hasCopy: true,
+                            //   validator: Validators.checkEmailField,
+                            // ),
                             const SizedBox(
                               height: 40,
                             ),
                             BimirLockTextField(
-                              label: "Email",
-                              hint: "bimal@gmail.com",
-                              textInputType: TextInputType.emailAddress,
-                              controller: c.emailController,
-                              hasCopy: true,
-                              validator: Validators.checkEmailField,
-                            ),
-                            const SizedBox(
-                              height: 40,
-                            ),
-                            BimirLockTextField(
-                              label: "User Name",
+                              label: "User Name/ Email",
                               hint: "Bimir codes",
                               controller: c.userNameController,
                               hasCopy: true,
