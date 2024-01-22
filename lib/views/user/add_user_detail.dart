@@ -31,7 +31,7 @@ class _AddUserDetailPageState extends State<AddUserDetailPage> {
         : ModalRoute.of(context)!.settings.arguments as bool?;
     var theme = Theme.of(context);
     return GestureDetector(
-      onTap: () => FocusScope.of(context).unfocus(),
+      onTap: () => FocusManager.instance.primaryFocus?.unfocus(),
       child: Scaffold(
         appBar: AppBar(
           scrolledUnderElevation: 0,

@@ -13,7 +13,7 @@ class IntroductionPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
-      onTap: () => FocusScope.of(context).unfocus(),
+      onTap: () => FocusManager.instance.primaryFocus?.unfocus(),
       child: Scaffold(
         body: Padding(
           padding: const EdgeInsets.all(25),
@@ -23,25 +23,30 @@ class IntroductionPage extends StatelessWidget {
             pages: [
               PageViewModel(
                 title: "About bimir lock",
-                body: "Instead of having to buy an entire share, invest any amount you want.",
+                body:
+                    "Instead of having to buy an entire share, invest any amount you want.",
                 // image: Image.asset("assets/Icons/apple.svg"),
                 // decoration: pageDecoration,
               ),
               PageViewModel(
                 title: "function 1",
-                body: "Download the Stockpile app and master the market with our mini-lesson.",
+                body:
+                    "Download the Stockpile app and master the market with our mini-lesson.",
               ),
               PageViewModel(
                 title: "function 2",
-                body: "Download the Stockpile app and master the market with our mini-lesson.",
+                body:
+                    "Download the Stockpile app and master the market with our mini-lesson.",
               ),
               PageViewModel(
                 title: "function 3",
-                body: "Download the Stockpile app and master the market with our mini-lesson.",
+                body:
+                    "Download the Stockpile app and master the market with our mini-lesson.",
               ),
               PageViewModel(
                 title: "function 4",
-                body: "Download the Stockpile app and master the market with our mini-lesson.",
+                body:
+                    "Download the Stockpile app and master the market with our mini-lesson.",
               ),
             ],
             onDone: () => c.onIntroEnd(),
@@ -52,9 +57,11 @@ class IntroductionPage extends StatelessWidget {
             showBackButton: false,
 
             back: const Icon(Icons.arrow_back),
-            skip: const Text('Skip', style: TextStyle(fontWeight: FontWeight.w600)),
+            skip: const Text('Skip',
+                style: TextStyle(fontWeight: FontWeight.w600)),
             next: const Icon(Icons.arrow_forward),
-            done: const Text('Done', style: TextStyle(fontWeight: FontWeight.w600)),
+            done: const Text('Done',
+                style: TextStyle(fontWeight: FontWeight.w600)),
             curve: Curves.fastLinearToSlowEaseIn,
             controlsMargin: const EdgeInsets.all(16),
             controlsPadding: const EdgeInsets.fromLTRB(8.0, 4.0, 8.0, 4.0),

@@ -23,8 +23,9 @@ class _WelcomePageState extends State<WelcomePage> {
 
   @override
   void initState() {
-    Future.delayed((const Duration(seconds: 3))).whenComplete(() =>
-        navigatorKey.currentState!.pushNamedAndRemoveUntil(HomePage.routeName, (route) => false));
+    Future.delayed((const Duration(seconds: 3))).whenComplete(() => navigatorKey
+        .currentState!
+        .pushNamedAndRemoveUntil(HomePage.routeName, (route) => false));
     super.initState();
   }
 
@@ -32,7 +33,7 @@ class _WelcomePageState extends State<WelcomePage> {
   Widget build(BuildContext context) {
     var theme = Theme.of(context);
     //for assigning height
-    var mHeight = MediaQuery.of(context).size.height;
+    var mHeight = MediaQuery.sizeOf(context).height;
     return Scaffold(
       body: SafeArea(
           child: Container(
@@ -98,7 +99,10 @@ class _WelcomePageState extends State<WelcomePage> {
                   height: 10,
                 ),
                 Text(
-                  cc.currentUser.value!.userName!.split(' ').first.capitalizeFirst!,
+                  cc.currentUser.value!.userName!
+                      .split(' ')
+                      .first
+                      .capitalizeFirst!,
                   style: TextStyle(
                     color: theme.colorScheme.onSurfaceVariant,
                     fontSize: 25,

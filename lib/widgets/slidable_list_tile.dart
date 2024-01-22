@@ -61,8 +61,7 @@ class SlidableListTile extends StatelessWidget {
                                     message:
                                         "The password you are trying to edit is protected with a pin. Please enter the pin to proceed.",
                                     onConfirm: (pin) {
-                                      print("cc: ${cc.encryptedPassword}");
-                                      if (pin == "1234") {
+                                      if (cc.encryptedPassword == pin) {
                                         Navigator.pop(context, true);
                                       } else {
                                         Fluttertoast.showToast(
@@ -72,13 +71,20 @@ class SlidableListTile extends StatelessWidget {
                                   );
                                 });
                             if (pinValid ?? false) {
-                              if (context.mounted)
+                              if (context.mounted) {
                                 Navigator.pop(context, false);
-                              navigatorKey.currentState!
-                                  .pushNamed(PasswordDetailPage.routeName);
+                              }
+                              navigatorKey.currentState!.pushNamed(
+                                PasswordDetailPage.routeName,
+                                arguments: PasswordDetailPageArgument(
+                                  passwordTable: passwordTable,
+                                  isEdit: true,
+                                ),
+                              );
                             } else {
-                              if (context.mounted)
+                              if (context.mounted) {
                                 Navigator.pop(context, false);
+                              }
                             }
                           },
                           child: const Text('Yes'),
@@ -119,7 +125,7 @@ class SlidableListTile extends StatelessWidget {
                                       message:
                                           "The password you are trying to edit is protected with a pin. Please enter the pin to proceed.",
                                       onConfirm: (pin) {
-                                        if (pin == "1234") {
+                                        if (cc.encryptedPassword == pin) {
                                           Navigator.pop(context, true);
                                         } else {
                                           Fluttertoast.showToast(
@@ -130,13 +136,15 @@ class SlidableListTile extends StatelessWidget {
                                     );
                                   });
                               if (pinValid ?? false) {
-                                if (context.mounted)
+                                if (context.mounted) {
                                   Navigator.pop(context, false);
+                                }
                                 navigatorKey.currentState!
                                     .pushNamed(PasswordDetailPage.routeName);
                               } else {
-                                if (context.mounted)
+                                if (context.mounted) {
                                   Navigator.pop(context, false);
+                                }
                               }
                             },
                             child: const Text('Yes'),
@@ -185,7 +193,7 @@ class SlidableListTile extends StatelessWidget {
                                     message:
                                         "The password you are trying to delete is protected with a pin. Please enter the pin to proceed.",
                                     onConfirm: (pin) {
-                                      if (pin == "1234") {
+                                      if (cc.encryptedPassword == pin) {
                                         Navigator.pop(context, true);
                                       } else {
                                         Fluttertoast.showToast(
@@ -194,8 +202,9 @@ class SlidableListTile extends StatelessWidget {
                                     },
                                   );
                                 });
-                            if (context.mounted)
+                            if (context.mounted) {
                               Navigator.pop(context, pinValid ?? false);
+                            }
                           },
                           child: const Text('OK'),
                         ),
@@ -241,24 +250,32 @@ class SlidableListTile extends StatelessWidget {
                                       message:
                                           "The password you are trying to delete is protected with a pin. Please enter the pin to proceed.",
                                       onConfirm: (pin) {
-                                        if (pin == "1234") {
+                                        if (cc.encryptedPassword == pin) {
                                           Navigator.pop(context, true);
                                         } else {
                                           Fluttertoast.showToast(
                                               msg: "invalid pin");
-                                          // Navigator.pop(context, false);
                                         }
+                                        // if (pin == "1234") {
+                                        //   Navigator.pop(context, true);
+                                        // } else {
+                                        //   Fluttertoast.showToast(
+                                        //       msg: "invalid pin");
+                                        //   // Navigator.pop(context, false);
+                                        // }
                                       },
                                     );
                                   });
                               if (pinValid ?? false) {
                                 hc.deletePassword(passwordTable);
                                 hc.passwords?.remove(passwordTable);
-                                if (context.mounted)
+                                if (context.mounted) {
                                   Navigator.pop(context, true);
+                                }
                               } else {
-                                if (context.mounted)
+                                if (context.mounted) {
                                   Navigator.pop(context, true);
+                                }
                               }
                               // if (context.mounted) Navigator.pop(context, pinValid ?? false);
 
@@ -329,8 +346,18 @@ class SlidableListTile extends StatelessWidget {
                         builder: (context) {
                           return PinInputMenuDialog(
                             onConfirm: (pin) {
-                              print("cc: ${cc.encryptedPassword}");
-                              print(pin);
+                              if (cc.encryptedPassword == pin) {
+                                Navigator.pop(context, true);
+                                navigatorKey.currentState!.pushNamed(
+                                  PasswordDetailPage.routeName,
+                                  arguments: PasswordDetailPageArgument(
+                                    passwordTable: passwordTable,
+                                    isEdit: false,
+                                  ),
+                                );
+                              } else {
+                                Fluttertoast.showToast(msg: "invalid pin");
+                              }
                             },
                           );
                         });

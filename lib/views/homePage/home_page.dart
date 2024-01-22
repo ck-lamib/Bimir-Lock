@@ -1,7 +1,7 @@
 import 'dart:io';
 
 import 'package:bimir_lock/controller/homePage/home_page_controller.dart';
-import 'package:bimir_lock/controller/pin/change_access_pin_controller.dart';
+
 import 'package:bimir_lock/core/core_controller.dart';
 import 'package:bimir_lock/main.dart';
 import 'package:bimir_lock/views/homePage/add_password.dart';
@@ -15,17 +15,12 @@ import '../../widgets/custom/custom_text_field.dart';
 import '../../widgets/slidable_list_tile.dart';
 import '../user/add_user_detail.dart';
 
-class HomePage extends StatefulWidget {
+class HomePage extends StatelessWidget {
   static const String routeName = "/homePage";
   HomePage({
     super.key,
   });
 
-  @override
-  State<HomePage> createState() => _HomePageState();
-}
-
-class _HomePageState extends State<HomePage> {
   final HomePageController c = Get.put(HomePageController());
 
   final CoreController cc = Get.find<CoreController>();
@@ -34,64 +29,8 @@ class _HomePageState extends State<HomePage> {
 
   final FocusNode _focusNode = FocusNode();
 
-  // showSetPinDialog(BuildContext context) {
-  //   ChangeAccessPinPageController controller =
-  //       Get.put(ChangeAccessPinPageController());
-  //   return showDialog(
-  //     context: context,
-  //     builder: (context) {
-  //       return Dialog(
-  //         child: Container(
-  //           height: 300,
-  //           width: 300,
-  //           child: Column(
-  //             children: [
-  //               const SizedBox(
-  //                 height: 20,
-  //               ),
-  //               const Text(
-  //                 "Set Access Pin",
-  //                 style: TextStyle(
-  //                   fontSize: 20,
-  //                   fontWeight: FontWeight.w500,
-  //                 ),
-  //               ),
-  //               const SizedBox(
-  //                 height: 20,
-  //               ),
-  //               SetAccessPinWidget(
-  //                 controller: controller,
-  //               ),
-  //               const SizedBox(
-  //                 height: 20,
-  //               ),
-  //               ElevatedButton(
-  //                 onPressed: () {
-  //                   // controller.savePin();
-  //                   Get.back();
-  //                 },
-  //                 child: const Text("Save"),
-  //               ),
-  //               const SizedBox(
-  //                 height: 20,
-  //               ),
-  //             ],
-  //           ),
-  //         ),
-  //       );
-  //     },
-  //   );
-  // }
-
-  // @override
-  // void initState() {
-
-  //   super.initState();
-  // }
-
   @override
   Widget build(BuildContext context) {
-    print(cc.currentUser.value?.userAvatar);
     var theme = Theme.of(context);
 
     return GestureDetector(

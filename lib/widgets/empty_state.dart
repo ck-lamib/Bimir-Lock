@@ -15,7 +15,7 @@ class EmptyState extends StatelessWidget {
         children: [
           Lottie.asset(
             "assets/lotties/empty_state.json",
-            height: MediaQuery.of(context).size.width * 0.7,
+            height: MediaQuery.sizeOf(context).width * 0.7,
           ),
           const SizedBox(height: 25),
           Text(

@@ -51,7 +51,7 @@ class AccessPinWidget extends StatelessWidget {
         FilteringTextInputFormatter.digitsOnly,
       ],
       closeKeyboardWhenCompleted: true,
-      onTapOutside: (event) => FocusScope.of(context).unfocus(),
+      onTapOutside: (event) => FocusManager.instance.primaryFocus?.unfocus(),
       isCursorAnimationEnabled: true,
       androidSmsAutofillMethod: AndroidSmsAutofillMethod.smsUserConsentApi,
       listenForMultipleSmsOnAndroid: true,

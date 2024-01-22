@@ -30,7 +30,7 @@ class _AddPasswordPageState extends State<AddPasswordPage> {
   Widget build(BuildContext context) {
     var theme = Theme.of(context);
     return GestureDetector(
-      onTap: () => FocusScope.of(context).unfocus(),
+      onTap: () => FocusManager.instance.primaryFocus?.unfocus(),
       child: Scaffold(
         appBar: AppBar(
           scrolledUnderElevation: 0,
