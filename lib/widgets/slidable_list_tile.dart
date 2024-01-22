@@ -139,8 +139,13 @@ class SlidableListTile extends StatelessWidget {
                                 if (context.mounted) {
                                   Navigator.pop(context, false);
                                 }
-                                navigatorKey.currentState!
-                                    .pushNamed(PasswordDetailPage.routeName);
+                                navigatorKey.currentState!.pushNamed(
+                                  PasswordDetailPage.routeName,
+                                  arguments: PasswordDetailPageArgument(
+                                    passwordTable: passwordTable,
+                                    isEdit: true,
+                                  ),
+                                );
                               } else {
                                 if (context.mounted) {
                                   Navigator.pop(context, false);
