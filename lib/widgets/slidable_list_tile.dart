@@ -1,4 +1,5 @@
 import 'package:bimir_lock/controller/homePage/home_page_controller.dart';
+import 'package:bimir_lock/core/core_controller.dart';
 import 'package:bimir_lock/main.dart';
 import 'package:bimir_lock/models/password_table.dart';
 import 'package:bimir_lock/views/homePage/password_detail.dart';
@@ -11,6 +12,7 @@ import 'package:get/get.dart';
 class SlidableListTile extends StatelessWidget {
   final HomePageController hc = Get.find<HomePageController>();
   SlidableListTile({super.key, required this.passwordTable});
+  final CoreController cc = Get.find<CoreController>();
 
   final PasswordTable passwordTable;
   @override
@@ -59,6 +61,7 @@ class SlidableListTile extends StatelessWidget {
                                     message:
                                         "The password you are trying to edit is protected with a pin. Please enter the pin to proceed.",
                                     onConfirm: (pin) {
+                                      print("cc: ${cc.encryptedPassword}");
                                       if (pin == "1234") {
                                         Navigator.pop(context, true);
                                       } else {
@@ -326,6 +329,7 @@ class SlidableListTile extends StatelessWidget {
                         builder: (context) {
                           return PinInputMenuDialog(
                             onConfirm: (pin) {
+                              print("cc: ${cc.encryptedPassword}");
                               print(pin);
                             },
                           );

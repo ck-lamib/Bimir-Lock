@@ -1,41 +1,110 @@
 import 'dart:io';
 
 import 'package:bimir_lock/controller/homePage/home_page_controller.dart';
+import 'package:bimir_lock/controller/pin/change_access_pin_controller.dart';
 import 'package:bimir_lock/core/core_controller.dart';
 import 'package:bimir_lock/main.dart';
 import 'package:bimir_lock/views/homePage/add_password.dart';
+import 'package:bimir_lock/views/pin/change_access_pin.dart';
 import 'package:bimir_lock/widgets/empty_state.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:pinput/pinput.dart';
 
 import '../../widgets/bimir_lock_drawer.dart';
 import '../../widgets/custom/custom_text_field.dart';
 import '../../widgets/slidable_list_tile.dart';
 import '../user/add_user_detail.dart';
 
-class HomePage extends StatelessWidget {
+class HomePage extends StatefulWidget {
   static const String routeName = "/homePage";
   HomePage({
     super.key,
   });
+
+  @override
+  State<HomePage> createState() => _HomePageState();
+}
+
+class _HomePageState extends State<HomePage> {
   final HomePageController c = Get.put(HomePageController());
+
   final CoreController cc = Get.find<CoreController>();
+
+  final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
+
+  final FocusNode _focusNode = FocusNode();
+
+  // showSetPinDialog(BuildContext context) {
+  //   ChangeAccessPinPageController controller =
+  //       Get.put(ChangeAccessPinPageController());
+  //   return showDialog(
+  //     context: context,
+  //     builder: (context) {
+  //       return Dialog(
+  //         child: Container(
+  //           height: 300,
+  //           width: 300,
+  //           child: Column(
+  //             children: [
+  //               const SizedBox(
+  //                 height: 20,
+  //               ),
+  //               const Text(
+  //                 "Set Access Pin",
+  //                 style: TextStyle(
+  //                   fontSize: 20,
+  //                   fontWeight: FontWeight.w500,
+  //                 ),
+  //               ),
+  //               const SizedBox(
+  //                 height: 20,
+  //               ),
+  //               SetAccessPinWidget(
+  //                 controller: controller,
+  //               ),
+  //               const SizedBox(
+  //                 height: 20,
+  //               ),
+  //               ElevatedButton(
+  //                 onPressed: () {
+  //                   // controller.savePin();
+  //                   Get.back();
+  //                 },
+  //                 child: const Text("Save"),
+  //               ),
+  //               const SizedBox(
+  //                 height: 20,
+  //               ),
+  //             ],
+  //           ),
+  //         ),
+  //       );
+  //     },
+  //   );
+  // }
+
+  // @override
+  // void initState() {
+
+  //   super.initState();
+  // }
 
   @override
   Widget build(BuildContext context) {
     print(cc.currentUser.value?.userAvatar);
     var theme = Theme.of(context);
+
     return GestureDetector(
-      onTap: () => FocusScope.of(context).unfocus(),
+      onTap: () => _focusNode.unfocus(),
       child: Scaffold(
+        key: _scaffoldKey,
         appBar: AppBar(
           scrolledUnderElevation: 0,
           leading: Padding(
             padding: const EdgeInsets.only(left: 15),
             child: Builder(builder: (context) {
               return IconButton(
-                onPressed: () => Scaffold.of(context).openDrawer(),
+                onPressed: () => _scaffoldKey.currentState?.openDrawer(),
                 highlightColor: Colors.transparent,
                 icon: Icon(
                   Icons.menu_rounded,
@@ -88,6 +157,7 @@ class HomePage extends StatelessWidget {
           child: Column(
             children: [
               BimirLockTextField(
+                focusNode: _focusNode,
                 prefixIcon: const Icon(Icons.search),
                 controller: c.searchEditingController,
                 label: "Search",
@@ -108,57 +178,56 @@ class HomePage extends StatelessWidget {
                     c.searchEditingController.clear();
                     c.searchPassword("");
                   },
-                  child: Obx(() => c.loading
-                      ? const Center(
-                          child: CircularProgressIndicator(),
-                        )
-                      : c.searchedValue.isNotEmpty
-                          ? c.searchedPasswords.isNotEmpty
-                              ? ListView.builder(
-                                  physics:
-                                      const AlwaysScrollableScrollPhysics(),
-                                  shrinkWrap: false,
-                                  itemCount: c.searchedPasswords.length + 1,
-                                  itemBuilder: (context, index) {
-                                    print(c.searchedPasswords.length);
-                                    if (c.searchedPasswords.length == index) {
-                                      print("uess");
-                                      return Column(
-                                        children: [
-                                          SlidableListTile(
-                                            passwordTable:
-                                                c.searchedPasswords[index],
-                                          ),
-                                          SizedBox(
-                                            height: 100,
-                                          ),
-                                        ],
-                                      );
-                                    }
+                  child: Obx(
+                    () => c.loading
+                        ? const Center(
+                            child: CircularProgressIndicator(),
+                          )
+                        : c.searchedValue.isNotEmpty
+                            ? c.searchedPasswords.isNotEmpty
+                                ? ListView.builder(
+                                    physics:
+                                        const AlwaysScrollableScrollPhysics(),
+                                    shrinkWrap: false,
+                                    itemCount: c.searchedPasswords.length + 1,
+                                    itemBuilder: (context, index) {
+                                      print(c.searchedPasswords.length);
+                                      if (c.searchedPasswords.length == index) {
+                                        return const SizedBox(
+                                          height: 100,
+                                        );
+                                      }
 
-                                    return SlidableListTile(
-                                      passwordTable: c.searchedPasswords[index],
-                                    );
-                                  },
-                                )
-                              : const EmptyState(
-                                  description:
-                                      "Password you are searching cannot be found.\nPlease add passwords")
-                          : c.passwords!.isEmpty
-                              ? const EmptyState(
-                                  description:
-                                      "Password cannot be found.\nPlease add passwords")
-                              : ListView.builder(
-                                  physics:
-                                      const AlwaysScrollableScrollPhysics(),
-                                  shrinkWrap: false,
-                                  itemCount: c.passwords!.length,
-                                  itemBuilder: (context, index) {
-                                    return SlidableListTile(
-                                      passwordTable: c.passwords![index],
-                                    );
-                                  },
-                                )),
+                                      return SlidableListTile(
+                                        passwordTable:
+                                            c.searchedPasswords[index],
+                                      );
+                                    },
+                                  )
+                                : const EmptyState(
+                                    description:
+                                        "Password you are searching cannot be found.\nPlease add passwords")
+                            : c.passwords!.isEmpty
+                                ? const EmptyState(
+                                    description:
+                                        "Password cannot be found.\nPlease add passwords")
+                                : ListView.builder(
+                                    physics:
+                                        const AlwaysScrollableScrollPhysics(),
+                                    shrinkWrap: false,
+                                    itemCount: c.passwords!.length + 1,
+                                    itemBuilder: (context, index) {
+                                      if (c.passwords!.length == index) {
+                                        return const SizedBox(
+                                          height: 100,
+                                        );
+                                      }
+                                      return SlidableListTile(
+                                        passwordTable: c.passwords![index],
+                                      );
+                                    },
+                                  ),
+                  ),
                 ),
               ),
               // tile
@@ -170,7 +239,42 @@ class HomePage extends StatelessWidget {
         floatingActionButton: FloatingActionButton.extended(
           heroTag: "addPasswordButton",
           onPressed: () {
-            navigatorKey.currentState!.pushNamed(AddPasswordPage.routeName);
+            if (cc.encryptedPassword == null) {
+              showDialog(
+                  context: context,
+                  builder: (context) {
+                    return AlertDialog(
+                      title: const Text("Required Access pin!!!"),
+                      content: const Text(
+                        "You have not set access pin yet. Please set access pin first to add password.",
+                      ),
+                      actions: [
+                        TextButton(
+                          onPressed: () {
+                            Navigator.of(context).pop();
+                            navigatorKey.currentState!
+                                .pushNamed(ChangeAccessPinPage.routeName);
+                          },
+                          child: const Text(
+                            "Ok",
+                          ),
+                        ),
+                        TextButton(
+                          onPressed: () {
+                            Navigator.of(context).pop();
+                          },
+                          child: const Text(
+                            "Cancel",
+                          ),
+                        ),
+                      ],
+                    );
+                  });
+              Get.snackbar("Error", "Please set access pin first");
+              return;
+            } else {
+              navigatorKey.currentState!.pushNamed(AddPasswordPage.routeName);
+            }
           },
           icon: const Icon(Icons.add),
           label: const Text("Add password"),

@@ -4,6 +4,7 @@ import 'package:bimir_lock/core/core_controller.dart';
 import 'package:bimir_lock/main.dart';
 import 'package:bimir_lock/utils/constants.dart';
 import 'package:bimir_lock/utils/image_path.dart';
+import 'package:bimir_lock/views/pin/change_access_pin.dart';
 import 'package:bimir_lock/widgets/contact_link_widget.dart';
 import 'package:bimir_lock/widgets/drawer_tile.dart';
 import 'package:flutter/material.dart';
@@ -58,16 +59,23 @@ class BimirLockDrawer extends StatelessWidget {
               ),
               InkWell(
                 onTap: () {
-                  navigatorKey.currentState!.pushNamed(AddUserDetailPage.routeName);
+                  navigatorKey.currentState!
+                      .pushNamed(AddUserDetailPage.routeName);
                 },
                 child: DrawerTile(
                   iconData: Icons.person_add_alt_rounded,
                   title: "Edit User detail",
                 ),
               ),
-              DrawerTile(
-                iconData: Icons.password,
-                title: "Change pin",
+              InkWell(
+                onTap: () {
+                  navigatorKey.currentState!
+                      .pushNamed(ChangeAccessPinPage.routeName);
+                },
+                child: DrawerTile(
+                  iconData: Icons.password,
+                  title: "Change pin",
+                ),
               ),
               DrawerTile(
                 iconData: Icons.fingerprint,

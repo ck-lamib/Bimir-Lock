@@ -37,8 +37,9 @@ class CoreController extends GetxController {
     initialQuote.value = await dataBaseHelper.getinitialQuotes();
     return initialQuote.value ??
         Quote(
-            quote: "The body achieves what the mind believes.",
-            author: "Erin Gray");
+          quote: "The body achieves what the mind believes.",
+          author: "Erin Gray",
+        );
   }
 
   bool isUserLoggedIn() {
@@ -64,7 +65,7 @@ class CoreController extends GetxController {
     }
   }
 
-  loadEncryptedPassword() async {
+  Future<void> loadEncryptedPassword() async {
     String? pass = await storageHelper.getEncryptedPassword();
     encryptedPassword = pass;
   }

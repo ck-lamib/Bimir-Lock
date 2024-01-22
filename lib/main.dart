@@ -19,15 +19,17 @@ class BimirLock extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Obx(() => MaterialApp(
-          navigatorKey: navigatorKey,
-          theme: lightTheme,
-          darkTheme: darkTheme,
-          themeMode: cc.themeMode.value,
-          // routes: routes,
-          initialRoute: SplashPage.routeName,
-          debugShowCheckedModeBanner: false,
-          onGenerateRoute: generatedRoute,
-        ));
+    return Obx(
+      () => MaterialApp(
+        navigatorKey: navigatorKey,
+        theme: lightTheme,
+        darkTheme: darkTheme,
+        themeMode: cc.themeMode.value,
+        // routes: routes,
+        initialRoute: SplashPage.routeName,
+        debugShowCheckedModeBanner: false,
+        onGenerateRoute: generatedRoute,
+      ),
+    );
   }
 }

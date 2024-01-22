@@ -35,8 +35,8 @@ class Validators {
   static String? checkPasswordField(String? fieldContent) {
     if (fieldContent!.isEmpty) {
       return 'This field is required';
-    } else if (fieldContent.length < 6) {
-      return 'The password should be at least 6 digits';
+    } else if (fieldContent.length < 3) {
+      return 'The password should be at least 3 digits';
     }
     return null;
   }
@@ -50,7 +50,8 @@ class Validators {
     return null;
   }
 
-  static String? checkConfirmPassword({String? password, String? fieldContent}) {
+  static String? checkConfirmPassword(
+      {String? password, String? fieldContent}) {
     var checkPassword = checkPasswordField(fieldContent);
     if (checkPassword != null) {
       return checkPassword;

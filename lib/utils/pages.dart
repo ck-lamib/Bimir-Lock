@@ -1,6 +1,7 @@
 import 'package:bimir_lock/views/homePage/add_password.dart';
 import 'package:bimir_lock/views/homePage/home_page.dart';
 import 'package:bimir_lock/views/homePage/password_detail.dart';
+import 'package:bimir_lock/views/pin/change_access_pin.dart';
 import 'package:bimir_lock/views/splash_page.dart';
 import 'package:flutter/material.dart';
 
@@ -74,6 +75,13 @@ Route<dynamic>? generatedRoute(RouteSettings settings) {
     case PasswordDetailPage.routeName:
       return MaterialPageRoute(
         builder: (_) => const PasswordDetailPage(),
+        settings: RouteSettings(
+          arguments: settings.arguments,
+        ),
+      );
+    case ChangeAccessPinPage.routeName:
+      return MaterialPageRoute(
+        builder: (_) => ChangeAccessPinPage(),
         settings: RouteSettings(
           arguments: settings.arguments,
         ),

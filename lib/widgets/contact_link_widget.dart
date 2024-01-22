@@ -22,7 +22,6 @@ class ContactLinkWidget extends StatelessWidget {
         try {
           await launchUrl(url);
         } catch (error) {
-          print(error);
           if (kDebugMode) {
             print('Could not launch $url');
           }
@@ -30,7 +29,8 @@ class ContactLinkWidget extends StatelessWidget {
       },
       child: SvgPicture.asset(
         linkSvgIcon,
-        colorFilter: ColorFilter.mode(theme.colorScheme.onSurfaceVariant, BlendMode.srcIn),
+        colorFilter: ColorFilter.mode(
+            theme.colorScheme.onSurfaceVariant, BlendMode.srcIn),
         width: 40,
       ),
     );
