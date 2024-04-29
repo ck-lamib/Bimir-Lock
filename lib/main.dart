@@ -2,12 +2,18 @@ import 'package:bimir_lock/core/core_controller.dart';
 import 'package:bimir_lock/utils/app_theme.dart';
 import 'package:bimir_lock/utils/pages.dart';
 import 'package:bimir_lock/views/splash_page.dart';
+import 'package:flutter/foundation.dart';
 
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:upgrader/upgrader.dart';
 
-void main() {
+void main() async {
   WidgetsFlutterBinding.ensureInitialized();
+  //for upgrade
+  if (kDebugMode) {
+    await Upgrader.clearSavedSettings();
+  }
   runApp(BimirLock());
 }
 

@@ -11,7 +11,7 @@ class EncryptData {
     final iv = IV.fromUtf8("d@dB0dy311@??t!L");
     final encrypter = Encrypter(AES(cipherKey));
     Encrypted encryptedData = encrypter.encrypt(plainText, iv: iv);
-    print(encryptedData.base64);
+    // print(encryptedData.base64);
     return encryptedData;
   }
 
@@ -21,7 +21,7 @@ class EncryptData {
     final iv = IV.fromUtf8("d@dB0dy311@??t!L");
     final encrypter = Encrypter(AES(cipherKey));
     var decrypted = encrypter.decrypt(encryptedData, iv: iv);
-    print(decrypted);
+    // print(decrypted);
     return decrypted;
   }
 

@@ -1,31 +1,30 @@
-import 'package:bimir_lock/controller/pin/change_access_pin_controller.dart';
 import 'package:bimir_lock/controller/pin/set_access_pin_controller.dart';
 import 'package:bimir_lock/utils/validators.dart';
 import 'package:bimir_lock/widgets/access_pin.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
-class ChangeAccessPinPage extends StatefulWidget {
-  static const String routeName = "/change-access-pin";
+class SetAccessPinPage extends StatefulWidget {
+  static const String routeName = "/set-access-pin";
 
-  const ChangeAccessPinPage({super.key});
+  const SetAccessPinPage({super.key});
 
   @override
-  State<ChangeAccessPinPage> createState() => _ChangeAccessPinPageState();
+  State<SetAccessPinPage> createState() => _SetAccessPinPageState();
 }
 
-class _ChangeAccessPinPageState extends State<ChangeAccessPinPage> {
-  late ChangeAccessPinPageController c;
+class _SetAccessPinPageState extends State<SetAccessPinPage> {
+  late SetAccessPinPageController c;
 
   @override
   void initState() {
-    c = Get.put(ChangeAccessPinPageController());
+    c = Get.put(SetAccessPinPageController());
     super.initState();
   }
 
   @override
   void dispose() {
-    Get.delete<ChangeAccessPinPageController>();
+    Get.delete<SetAccessPinPageController>();
     super.dispose();
   }
 
@@ -49,7 +48,7 @@ class _ChangeAccessPinPageState extends State<ChangeAccessPinPage> {
           ),
           automaticallyImplyLeading: false,
           title: const Text(
-            "Change Access Pin",
+            "Set Access Pin",
             style: TextStyle(
               fontWeight: FontWeight.w500,
             ),
@@ -95,27 +94,10 @@ class _ChangeAccessPinPageState extends State<ChangeAccessPinPage> {
                               validator: Validators.checkPinField,
                             ),
                             const SizedBox(
-                              height: 15,
-                            ),
-                            const Text(
-                              "Enter new access pin:",
-                              style: TextStyle(
-                                fontSize: 16,
-                                fontWeight: FontWeight.w500,
-                              ),
-                            ),
-                            const SizedBox(
-                              height: 15,
-                            ),
-                            AccessPinWidget(
-                              pinController: c.newAccessPinController,
-                              validator: Validators.checkPinField,
-                            ),
-                            const SizedBox(
                               height: 40,
                             ),
                             const Text(
-                              "Re-enter new access pin:",
+                              "Re-Enter your access pin:",
                               style: TextStyle(
                                 fontSize: 16,
                                 fontWeight: FontWeight.w500,
@@ -125,11 +107,11 @@ class _ChangeAccessPinPageState extends State<ChangeAccessPinPage> {
                               height: 15,
                             ),
                             AccessPinWidget(
-                                pinController: c.reNewAccessPinController,
+                                pinController: c.reAccessPinController,
                                 onCompleted: (p0) {},
                                 validator: (value) =>
                                     Validators.checkConfirmPin(
-                                        c.newAccessPinController.text, value)),
+                                        c.accessPinController.text, value)),
                           ],
                         ),
                       ),

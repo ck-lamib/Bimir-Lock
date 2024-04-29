@@ -3,11 +3,14 @@ import 'dart:io';
 import 'package:bimir_lock/core/core_controller.dart';
 import 'package:bimir_lock/main.dart';
 import 'package:bimir_lock/utils/constants.dart';
+import 'package:bimir_lock/utils/helper/storage_helper.dart';
 import 'package:bimir_lock/utils/image_path.dart';
 import 'package:bimir_lock/views/pin/change_access_pin.dart';
+import 'package:bimir_lock/views/pin/set_access_pin.dart';
 import 'package:bimir_lock/widgets/contact_link_widget.dart';
 import 'package:bimir_lock/widgets/drawer_tile.dart';
 import 'package:flutter/material.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:get/get.dart';
 
 import '../views/user/add_user_detail.dart';
@@ -68,18 +71,33 @@ class BimirLockDrawer extends StatelessWidget {
                 ),
               ),
               InkWell(
-                onTap: () {
-                  navigatorKey.currentState!
-                      .pushNamed(ChangeAccessPinPage.routeName);
+                onTap: () async {
+                  StorageHelper storageHelper = StorageHelper();
+                  String? password = await storageHelper.getEncryptedPassword();
+                  if (password != null) {
+                    navigatorKey.currentState!
+                        .pushNamed(ChangeAccessPinPage.routeName);
+                  } else {
+                    navigatorKey.currentState!
+                        .pushNamed(SetAccessPinPage.routeName);
+                    Fluttertoast.showToast(
+                        msg:
+                            "You have not set the access pin yet. Please set it first.");
+                  }
                 },
                 child: DrawerTile(
                   iconData: Icons.password,
                   title: "Change pin",
                 ),
               ),
-              DrawerTile(
-                iconData: Icons.fingerprint,
-                title: "Change biometric",
+              InkWell(
+                onTap: () {
+                  Fluttertoast.showToast(msg: "Feature comming soon.");
+                },
+                child: DrawerTile(
+                  iconData: Icons.fingerprint,
+                  title: "Change biometric",
+                ),
               ),
               DrawerTile(
                 iconData: Icons.mode_edit,

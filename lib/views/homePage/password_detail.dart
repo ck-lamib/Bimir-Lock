@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:bimir_lock/controller/homePage/home_page_controller.dart';
 import 'package:bimir_lock/controller/homePage/password_detail_controller.dart';
 import 'package:bimir_lock/models/password_table.dart';
@@ -22,12 +24,30 @@ class PasswordDetailPage extends StatefulWidget {
 class _PasswordDetailPageState extends State<PasswordDetailPage> {
   late PasswordDetailController c;
   PasswordDetailPageArgument? _passwordDetailPageArgument;
-  PasswordTable? passwordTable;
+  Rxn<PasswordTable> passwordTable = Rxn();
 
   @override
   void initState() {
     c = Get.put(PasswordDetailController());
+
     super.initState();
+    WidgetsFlutterBinding.ensureInitialized();
+    final widgetsBinding = WidgetsBinding.instance;
+    widgetsBinding.addPostFrameCallback((callback) {
+      if (ModalRoute.of(context)?.settings.arguments != null) {
+        _passwordDetailPageArgument = ModalRoute.of(context)!.settings.arguments
+            as PasswordDetailPageArgument;
+        if (_passwordDetailPageArgument != null) {
+          c.isEdit.value = _passwordDetailPageArgument!.isEdit;
+          passwordTable.value = _passwordDetailPageArgument!.passwordTable;
+          c.titleController.text = passwordTable.value!.title!;
+          c.userNameController.text = passwordTable.value!.userName!;
+          c.passwordController.text = passwordTable.value!.password!;
+          c.id = passwordTable.value!.id;
+        }
+        log("=======>>> $_passwordDetailPageArgument");
+      }
+    });
   }
 
   @override
@@ -38,17 +58,6 @@ class _PasswordDetailPageState extends State<PasswordDetailPage> {
 
   @override
   Widget build(BuildContext context) {
-    _passwordDetailPageArgument = ModalRoute.of(context)!.settings.arguments
-        as PasswordDetailPageArgument;
-    if (_passwordDetailPageArgument != null) {
-      c.isEdit.value = _passwordDetailPageArgument!.isEdit;
-      passwordTable = _passwordDetailPageArgument!.passwordTable;
-      c.titleController.text = passwordTable!.title!;
-      c.userNameController.text = passwordTable!.userName!;
-      c.passwordController.text = passwordTable!.password!;
-      c.id = passwordTable!.id;
-    }
-    print(c.isEdit);
     var theme = Theme.of(context);
     return GestureDetector(
       onTap: () => FocusManager.instance.primaryFocus?.unfocus(),
@@ -75,123 +84,123 @@ class _PasswordDetailPageState extends State<PasswordDetailPage> {
             ),
           ),
           centerTitle: true,
-          actions: [
-            PopupMenuButton(
-              splashRadius: 0,
-              // shadowColor: AppColor.tertiaryTextColor,
-              padding: const EdgeInsets.symmetric(vertical: 12, horizontal: 60),
-              position: PopupMenuPosition.under,
-              shape: const RoundedRectangleBorder(
-                borderRadius: BorderRadius.all(
-                  Radius.circular(4.0),
-                ),
-              ),
-              constraints: const BoxConstraints(minWidth: 119, minHeight: 123),
-              onSelected: (value) async {
-                if (value == "Edit") {
-                  c.onEditTap();
-                } else if (value == "Delete") {
-                  bool? result = await showDialog(
-                    context: context,
-                    builder: (context) {
-                      return AlertDialog(
-                        title: const Text("Consent required!!!"),
-                        content: const Text(
-                          "Do you really want to delete this password detial. Once deleted you cannot recover it back.",
-                        ),
-                        actions: [
-                          TextButton(
-                            onPressed: () {
-                              Navigator.of(context).pop(true);
-                            },
-                            child: const Text(
-                              "Ok",
-                            ),
-                          ),
-                          TextButton(
-                            onPressed: () {
-                              Navigator.of(context).pop(false);
-                            },
-                            child: const Text(
-                              "Cancel",
-                            ),
-                          ),
-                        ],
-                      );
-                    },
-                  );
-                  if (result != null && result) {
-                    var success = await c.onDeleteTap(passwordTable!);
-                    if (success) {
-                      HomePageController hpc = Get.find();
-                      await hpc.loadPasswords();
-                      Fluttertoast.showToast(
-                          msg: "Password deleted successfully");
-                      if (context.mounted) {
-                        Navigator.of(context).pop();
-                      }
-                    } else {
-                      Fluttertoast.showToast(
-                          msg: "Error encountered while deleting password");
-                    }
-                  }
-                }
-              },
-              offset: const Offset(-20, 0),
-              itemBuilder: (BuildContext context) => [
-                PopupMenuItem(
-                  value: "Edit",
-                  child: Row(
-                    children: [
-                      Icon(
-                        Icons.edit,
-                        color: theme.colorScheme.onSurfaceVariant,
-                      ),
-                      const SizedBox(
-                        width: 5,
-                      ),
-                      Text(
-                        "Edit",
-                        style: TextStyle(
-                          fontSize: 16,
-                          fontWeight: FontWeight.w400,
-                          color: theme.colorScheme.onSurfaceVariant,
-                        ),
-                      ),
-                    ],
-                  ),
-                ),
-                PopupMenuItem(
-                  value: "Delete",
-                  child: Row(
-                    children: [
-                      Icon(
-                        Icons.delete,
-                        color: theme.colorScheme.error,
-                      ),
-                      const SizedBox(
-                        width: 5,
-                      ),
-                      Text(
-                        "Delete",
-                        style: TextStyle(
-                          fontSize: 16,
-                          fontWeight: FontWeight.w400,
-                          color: theme.colorScheme.error,
-                        ),
-                      )
-                    ],
-                  ),
-                ),
-              ],
-              child: const Padding(
-                padding: EdgeInsets.only(right: 24),
-                child: Icon(
-                  Icons.more_vert_rounded,
-                ),
-              ),
-            )
-          ],
+          // actions: [
+          //   PopupMenuButton(
+          //     splashRadius: 0,
+          //     // shadowColor: AppColor.tertiaryTextColor,
+          //     padding: const EdgeInsets.symmetric(vertical: 12, horizontal: 60),
+          //     position: PopupMenuPosition.under,
+          //     shape: const RoundedRectangleBorder(
+          //       borderRadius: BorderRadius.all(
+          //         Radius.circular(4.0),
+          //       ),
+          //     ),
+          //     constraints: const BoxConstraints(minWidth: 119, minHeight: 123),
+          //     onSelected: (value) async {
+          //       if (value == "Edit") {
+          //         c.onEditTap();
+          //       } else if (value == "Delete") {
+          //         bool? result = await showDialog(
+          //           context: context,
+          //           builder: (context) {
+          //             return AlertDialog(
+          //               title: const Text("Consent required!!!"),
+          //               content: const Text(
+          //                 "Do you really want to delete this password detial. Once deleted you cannot recover it back.",
+          //               ),
+          //               actions: [
+          //                 TextButton(
+          //                   onPressed: () {
+          //                     Navigator.of(context).pop(true);
+          //                   },
+          //                   child: const Text(
+          //                     "Ok",
+          //                   ),
+          //                 ),
+          //                 TextButton(
+          //                   onPressed: () {
+          //                     Navigator.of(context).pop(false);
+          //                   },
+          //                   child: const Text(
+          //                     "Cancel",
+          //                   ),
+          //                 ),
+          //               ],
+          //             );
+          //           },
+          //         );
+          //         if (result != null && result) {
+          //           var success = await c.onDeleteTap(passwordTable!);
+          //           if (success) {
+          //             HomePageController hpc = Get.find();
+          //             await hpc.loadPasswords();
+          //             Fluttertoast.showToast(
+          //                 msg: "Password deleted successfully");
+          //             if (context.mounted) {
+          //               Navigator.of(context).pop();
+          //             }
+          //           } else {
+          //             Fluttertoast.showToast(
+          //                 msg: "Error encountered while deleting password");
+          //           }
+          //         }
+          //       }
+          //     },
+          //     offset: const Offset(-20, 0),
+          //     itemBuilder: (BuildContext context) => [
+          //       PopupMenuItem(
+          //         value: "Edit",
+          //         child: Row(
+          //           children: [
+          //             Icon(
+          //               Icons.edit,
+          //               color: theme.colorScheme.onSurfaceVariant,
+          //             ),
+          //             const SizedBox(
+          //               width: 5,
+          //             ),
+          //             Text(
+          //               "Edit",
+          //               style: TextStyle(
+          //                 fontSize: 16,
+          //                 fontWeight: FontWeight.w400,
+          //                 color: theme.colorScheme.onSurfaceVariant,
+          //               ),
+          //             ),
+          //           ],
+          //         ),
+          //       ),
+          //       PopupMenuItem(
+          //         value: "Delete",
+          //         child: Row(
+          //           children: [
+          //             Icon(
+          //               Icons.delete,
+          //               color: theme.colorScheme.error,
+          //             ),
+          //             const SizedBox(
+          //               width: 5,
+          //             ),
+          //             Text(
+          //               "Delete",
+          //               style: TextStyle(
+          //                 fontSize: 16,
+          //                 fontWeight: FontWeight.w400,
+          //                 color: theme.colorScheme.error,
+          //               ),
+          //             )
+          //           ],
+          //         ),
+          //       ),
+          //     ],
+          //     child: const Padding(
+          //       padding: EdgeInsets.only(right: 24),
+          //       child: Icon(
+          //         Icons.more_vert_rounded,
+          //       ),
+          //     ),
+          //   )
+          // ],
         ),
         body: Padding(
           padding: const EdgeInsets.only(
@@ -221,11 +230,13 @@ class _PasswordDetailPageState extends State<PasswordDetailPage> {
                           crossAxisAlignment: CrossAxisAlignment.center,
                           mainAxisSize: MainAxisSize.min,
                           children: [
-                            Text(
-                              "${passwordTable?.title.toString().capitalizeFirst}",
-                              style: const TextStyle(
-                                fontSize: 18,
-                                fontWeight: FontWeight.bold,
+                            Obx(
+                              () => Text(
+                                "${passwordTable.value?.title.toString().capitalizeFirst}",
+                                style: const TextStyle(
+                                  fontSize: 18,
+                                  fontWeight: FontWeight.bold,
+                                ),
                               ),
                             ),
                             const SizedBox(
@@ -344,19 +355,19 @@ class _PasswordDetailPageState extends State<PasswordDetailPage> {
                                       ),
                                     ),
                                   ),
-                                  FloatingActionButton.extended(
-                                    heroTag: "editpasswordCancel",
-                                    onPressed: () {
-                                      c.onCancelTap();
-                                    },
-                                    label: const Text(
-                                      "Cancel",
-                                      style: TextStyle(
-                                        fontSize: 18,
-                                        fontWeight: FontWeight.w500,
-                                      ),
-                                    ),
-                                  ),
+                                  // FloatingActionButton.extended(
+                                  //   heroTag: "editpasswordCancel",
+                                  //   onPressed: () {
+                                  //     c.onCancelTap();
+                                  //   },
+                                  //   label: const Text(
+                                  //     "Cancel",
+                                  //     style: TextStyle(
+                                  //       fontSize: 18,
+                                  //       fontWeight: FontWeight.w500,
+                                  //     ),
+                                  //   ),
+                                  // ),
                                 ],
                               ),
                             )

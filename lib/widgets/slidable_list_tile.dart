@@ -384,7 +384,9 @@ class SlidableListTile extends StatelessWidget {
                   width: 5,
                 ),
                 IconButton(
-                  onPressed: () {},
+                  onPressed: () {
+                    Fluttertoast.showToast(msg: "Feature comming soon.");
+                  },
                   icon: const Icon(
                     Icons.fingerprint,
                     size: 30,

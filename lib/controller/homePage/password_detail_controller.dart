@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:bimir_lock/models/password_table.dart';
 import 'package:bimir_lock/utils/helper/db_helper.dart';
 import 'package:flutter/material.dart';
@@ -33,6 +35,8 @@ class PasswordDetailController extends GetxController {
       userName: userNameController.text,
       password: passwordController.text,
     );
+    log(titleController.text);
+    log(passwordTable.toJson().toString());
     success = await dbHelper.updatePassword(passwordTable);
 
     return success;

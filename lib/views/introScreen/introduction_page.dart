@@ -1,4 +1,6 @@
+import 'package:bimir_lock/utils/image_path.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/svg.dart';
 import 'package:introduction_screen/introduction_screen.dart';
 
 import '../../controller/introScreen/introduction_controller.dart';
@@ -12,6 +14,7 @@ class IntroductionPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    var width = MediaQuery.sizeOf(context).width;
     return GestureDetector(
       onTap: () => FocusManager.instance.primaryFocus?.unfocus(),
       child: Scaffold(
@@ -22,31 +25,41 @@ class IntroductionPage extends StatelessWidget {
             allowImplicitScrolling: false,
             pages: [
               PageViewModel(
-                title: "About bimir lock",
+                  title: "Robust Authentication",
+                  body:
+                      "Bimir-Lock employs a robust authentication system to ensure that only authorized users can access your passwords.",
+                  image: SvgPicture.asset(
+                    ImagePath.intro1Path,
+                    width: width * 0.5,
+                  )
+                  // decoration: pageDecoration,
+                  ),
+              PageViewModel(
+                title: "Anytime Access",
                 body:
-                    "Instead of having to buy an entire share, invest any amount you want.",
-                // image: Image.asset("assets/Icons/apple.svg"),
-                // decoration: pageDecoration,
+                    "Access your passwords anytime, anywhere with Bimir-Lock's mobile accessibility. Whether you're on the go or at home, our app puts your security in your hands, allowing you to manage your passwords with ease and convenience.",
+                image: SvgPicture.asset(
+                  ImagePath.intro2Path,
+                  width: width * 0.5,
+                ),
               ),
               PageViewModel(
-                title: "function 1",
+                title: "Regular Updates",
                 body:
-                    "Download the Stockpile app and master the market with our mini-lesson.",
+                    "Benefit from regular updates and enhancements with Bimir-Lock. Our team is committed to staying ahead of emerging threats, ensuring that your data is protected with the latest security measures.",
+                image: SvgPicture.asset(
+                  ImagePath.intro3Path,
+                  width: width * 0.5,
+                ),
               ),
               PageViewModel(
-                title: "function 2",
+                title: "Performance Optimization",
                 body:
-                    "Download the Stockpile app and master the market with our mini-lesson.",
-              ),
-              PageViewModel(
-                title: "function 3",
-                body:
-                    "Download the Stockpile app and master the market with our mini-lesson.",
-              ),
-              PageViewModel(
-                title: "function 4",
-                body:
-                    "Download the Stockpile app and master the market with our mini-lesson.",
+                    "Enjoy optimal performance with Bimir-Lock's efficient design. Our app minimizes resource usage while maximizing security and usability, providing you with a seamless and responsive experience.",
+                image: SvgPicture.asset(
+                  ImagePath.intro4Path,
+                  width: width * 0.5,
+                ),
               ),
             ],
             onDone: () => c.onIntroEnd(),

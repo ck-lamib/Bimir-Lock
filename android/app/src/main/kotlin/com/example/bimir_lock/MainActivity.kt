@@ -1,4 +1,4 @@
-package com.example.bimir_lock
+package com.cklamib.bimirLock
 
 import io.flutter.embedding.android.FlutterFragmentActivity
 
