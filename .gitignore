@@ -43,3 +43,8 @@ app.*.map.json
 /android/app/profile
 /android/app/release
 /pubspec.lock
+
+
+# keystore releated
+android/app/upload-keystore.jks
+android/key.properties
