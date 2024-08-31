@@ -53,8 +53,6 @@ class AccessPinWidget extends StatelessWidget {
       closeKeyboardWhenCompleted: true,
       onTapOutside: (event) => FocusManager.instance.primaryFocus?.unfocus(),
       isCursorAnimationEnabled: true,
-      androidSmsAutofillMethod: AndroidSmsAutofillMethod.smsUserConsentApi,
-      listenForMultipleSmsOnAndroid: true,
       defaultPinTheme: defaultPinTheme,
       validator: validator,
       hapticFeedbackType: HapticFeedbackType.lightImpact,
